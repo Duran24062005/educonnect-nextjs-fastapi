@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +24,35 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+
+body {
+  background-color: rgb(216, 215, 228);
+}
+
+.Alexi_Dg {
+  background: radial-gradient(blueviolet, orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: cursive;
+}
+
+.icono {
+  background: radial-gradient(green, blueviolet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.Logo {
+  background: radial-gradient(yellow, blueviolet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: cursive;
 }

@@ -117,6 +117,7 @@ export default function Home() {
           </p>
         </a>
       </div>
+      <p>hola mundo</p>
     </main>
   );
 }
