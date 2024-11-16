@@ -80,7 +80,8 @@ export const BlogComponent = () => {
                 <User className="h-4 w-4 mr-1" />
                 <span className="mr-4">{post.author}</span>
                 <Calendar className="h-4 w-4 mr-1" />
-                <span>{post.date}</span>
+                <span className="mr-4">{new Date(post.date).toLocaleDateString()}</span>
+                <span>{new Date(post.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
               <button 
                 onClick={() => openModal(post)}

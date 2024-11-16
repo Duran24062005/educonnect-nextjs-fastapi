@@ -13,6 +13,15 @@ class CourseController:
         except SQLAlchemyError as e:
             print(f"Error fetching courses: {e}")
             return None
+    
+    @staticmethod
+    def get_courses_leng():
+        try:
+            len_courses = CourseController.get_courses()
+            return len(len_courses)
+        except Exception as e:
+            print(f"Error fetching courses: {e}")
+            return None
         
     def get_course_by_id(id: int)->CourseSchema:
         """Get course by id from database"""

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { fetchCourses } from '@/app/api/apis/courses'
 import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -19,6 +21,25 @@ ChartJS.register(
 )
 
 export const AsideHome = () => {
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchCourses(); // Cambia '/api/my-endpoint' por la URL deseada
+        setData(response);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (error) return <p>{error}</p>;
+  if (!data) return <p>Cargando...</p>;
+
   const chartData = {
     labels: ['Matemáticas', 'Sociales', 'Naturales', 'Historia', 'Arte'],
     datasets: [{
@@ -68,7 +89,7 @@ export const AsideHome = () => {
 
       <div className="px-4 py-3 bg-gray-200 w-72 m-auto rounded-md">
         <h2 className="text-center">Materias Activas</h2>
-        <p className="text-center">8</p>
+        <p className="text-center">{ data }</p>
       </div>
 
       <div className="px-4 py-3 bg-gray-200 xl:w-72 xl:m-auto rounded-md">

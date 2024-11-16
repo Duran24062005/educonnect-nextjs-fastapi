@@ -4,7 +4,7 @@ export const blogPosts = [
         title: "Introducción a React",
         excerpt: "React es una biblioteca de JavaScript para construir interfaces de usuario. En este post, exploraremos los conceptos básicos de React y cómo comenzar con tu primer proyecto.",
         author: "María García",
-        date: "2023-05-15",
+        date: "2024-11-05 11:55:42.676274",
         // imageUrl: "/assets/react.svg"
         imageUrl: "http://127.0.0.1:8000/uploads/images/7d78d98a681f4956a45ff127b7609369_4Bx2DhWj2mhuwDWyk7je2K.png"
     },
@@ -13,7 +13,7 @@ export const blogPosts = [
         title: "Mejores prácticas con Tailwind CSS",
         excerpt: "Tailwind CSS es un framework de utilidades CSS que puede acelerar significativamente tu desarrollo frontend. Descubre las mejores prácticas para aprovechar al máximo Tailwind en tus proyectos.",
         author: "Carlos Rodríguez",
-        date: "2023-05-20",
+        date: "2024-11-05 11:55:42.676274",
         // imageUrl: "https://images.unsplash.com/photo-1725867253101-a78ead1ce5e3"
         imageUrl: "/assets/img/docente.jpeg"
     },
@@ -22,7 +22,7 @@ export const blogPosts = [
         title: "Explorando la Creatividad en Desarrollo Web",
         excerpt: "Sumérgete en técnicas innovadoras para diseñar y desarrollar aplicaciones web creativas y funcionales que capturen la atención de los usuarios.",
         author: "Ana Martínez",
-        date: "2023-05-25",
+        date: "2024-11-05 11:55:42.676274",
         imageUrl: "/assets/img/estudiante.jpeg"
     },
     {

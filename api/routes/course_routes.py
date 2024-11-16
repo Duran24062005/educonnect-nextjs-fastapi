@@ -14,6 +14,12 @@ def get_courses()->list[CourseSchema]:
     response = CourseController.get_courses()
     return JSONResponse(content=jsonable_encoder(response), status_code=200)
 
+@course_routes.get('/leng', tags=['Courses'])
+def get_courses_leng()->int:
+    """Get the number of courses"""
+    response = CourseController.get_courses_leng()
+    return JSONResponse(content=jsonable_encoder(response), status_code=200)
+
 @course_routes.get('/{id}', tags=['Courses'], response_model=CourseSchema)
 def get_course(id: int)->CourseSchema:
     """Get a course by id"""
