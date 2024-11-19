@@ -11,8 +11,12 @@ export const blogPosts = [
     {
         id: 2,
         title: "Mejores prácticas con Tailwind CSS",
-        excerpt: "Tailwind CSS es un framework de utilidades CSS que puede acelerar significativamente tu desarrollo frontend. Descubre las mejores prácticas para aprovechar al máximo Tailwind en tus proyectos.",
-        author: "Carlos Rodríguez",
+        excerpt: `Tailwind CSS es un framework de utilidades CSS 
+        que puede acelerar significativamente tu desarrollo frontend. Descubre las mejores prácticas para aprovechar al máximo Tailwind en tus proyectos.",
+        El reciclaje es el proceso de recolección y transformación de materiales para convertirlos en nuevos productos. Estos desechos, de otro modo, serían descartados como basura.
+        De ahí su beneficio para el medioambiente, como explica Ranjit Baxi, presidente y fundador de la Global Recycling Foundation: “Hablamos de un esfuerzo colectivo y un asunto crucial para el futuro del planeta porque nadie puede actuar de forma aislada. Es imperativo que involucremos a la población más amplia posible, desde líderes mundiales a empresas y personas, sin importar dónde se encuentren”.
+        `,
+        author: "Critian camilo",
         date: "2024-11-05 11:55:42.676274",
         // imageUrl: "https://images.unsplash.com/photo-1725867253101-a78ead1ce5e3"
         imageUrl: "/assets/img/docente.jpeg"

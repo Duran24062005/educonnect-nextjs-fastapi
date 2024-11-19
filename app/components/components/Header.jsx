@@ -10,7 +10,7 @@ export const Header = () => {
         <div className="container mx-auto flex justify-between items-center">
           <div className='flex'>
             <Image className='w-12 rounded-full logo-logo' src={ EduConnectLogo } alt="" />
-            <h1 className="text-2xl font-bold m-2 Logo">EduConnect</h1>
+            <h1 className="lg:text-2xl md:text-xl font-bold m-2 Logo">EduConnect</h1>
             <Image src={ logo } alt="" />
           </div>
           <div className='flex'>

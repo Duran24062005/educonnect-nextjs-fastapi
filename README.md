@@ -89,7 +89,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 <p align="center">
   <a href="https://edu-connect-beta.vercel.app/">
     <img src="https://edu-connect-beta.vercel.app/img/EduConectLogo.png" height="96">
-    <h2 align="center">EduConnect</h2>
+    <h1 align="center">EduConnect</h1>
   </a>
 </p>
 
@@ -97,7 +97,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 <br/>
 
-# EduConnect
 
 EduConnect es una plataforma educativa integral diseñada para facilitar la gestión académica y mejorar la comunicación entre estudiantes, maestros y padres. Este proyecto es una iniciativa abierta, donada a [Nombre de la Escuela], con el objetivo de proporcionar a los estudiantes una oportunidad de aprendizaje práctico en desarrollo de software.
 

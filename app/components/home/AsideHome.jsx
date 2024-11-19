@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { fetchCourses } from '@/app/api/apis/courses'
-import { Bar } from 'react-chartjs-2'
+import AsideHomeSkeleton from '@/app/components/home/skeletons/AsideHomeSkeleton'
+import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  PointElement,
+  LineElement,
   BarElement,
   Title,
   Tooltip,
@@ -14,6 +17,8 @@ import {
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  PointElement,
+  LineElement,
   BarElement,
   Title,
   Tooltip,
@@ -38,13 +43,16 @@ export const AsideHome = () => {
   }, []);
 
   if (error) return <p>{error}</p>;
-  if (!data) return <p>Cargando...</p>;
+  if (!data) return <AsideHomeSkeleton />;
+
+  const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40];
+  const dta = [75, 82, 30, 85, 30, 57];
 
   const chartData = {
     labels: ['Matemáticas', 'Sociales', 'Naturales', 'Historia', 'Arte'],
     datasets: [{
       label: 'Promedio por Materia',
-      data: [75, 82, 30, 85, 30, 57],
+      data: dta,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -77,24 +85,24 @@ export const AsideHome = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 pt-8">
-      <div className="px-4 py-3 bg-gray-200 w-72 m-auto rounded-md">
-        <h2 className="text-center">Estudiantes Activos</h2>
-        <p className="text-center">1,234</p>
+      <div className="px-4 py-3 bg-slate-700 w-72 m-auto rounded-md">
+        <h2 className="text-center text-slate-200">Estudiantes Activos</h2>
+        <p className="text-center text-slate-200">1,234</p>
       </div>
 
-      <div className="px-4 py-3 bg-gray-200 w-72 m-auto rounded-md">
-        <h2 className="text-center">Promedio General</h2>
-        <p className="text-center">8.7</p>
+      <div className="px-4 py-3 bg-slate-700 w-72 m-auto rounded-md">
+        <h2 className="text-center text-slate-200">Promedio General</h2>
+        <p className="text-center text-slate-200">8.7</p>
       </div>
 
-      <div className="px-4 py-3 bg-gray-200 w-72 m-auto rounded-md">
-        <h2 className="text-center">Materias Activas</h2>
-        <p className="text-center">{ data }</p>
+      <div className="px-4 py-3 bg-slate-700 w-72 m-auto rounded-md">
+        <h2 className="text-center text-slate-200">Materias Activas</h2>
+        <p className="text-center text-slate-200">{ data }</p>
       </div>
 
-      <div className="px-4 py-3 bg-gray-200 xl:w-72 xl:m-auto rounded-md">
-        <h2 className="text-center">Rendimiento académico</h2>
-        <Bar data={chartData} options={chartOptions} />
+      <div className="px-4 py-3 bg-slate-700 xl:w-72 xl:m-auto rounded-md">
+        <h2 className="text-center text-slate-200">Rendimiento académico</h2>
+        <Line data={chartData} options={chartOptions} />
       </div>
       
     </div>

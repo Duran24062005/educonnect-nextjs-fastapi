@@ -1,4 +1,4 @@
-import { Teacher } from "../components/users/teachers/Teacher"
+import Teacher from "../components/users/teachers/Teacher"
 
 
 

@@ -33,7 +33,7 @@ export const BlogComponent = () => {
     <div className="container mx-auto px-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
-          <h2 className="text-2xl font-semibold whitespace-nowrap">Últimas Publicaciones</h2>
+          <h2 className="text-white text-2xl font-semibold whitespace-nowrap">Últimas Publicaciones</h2>
           <div className="w-full sm:w-auto max-w-md">
             <div className="flex border-2 bg-gray-300 transition-all duration-300 ease-in-out rounded-md overflow-hidden">
               {isSearchVisible && (
@@ -46,7 +46,7 @@ export const BlogComponent = () => {
                   onChange={(e) => setFilter(e.target.value)}
                 />
               )}
-              <button onClick={toggleSearch} className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 flex items-center justify-center">
+              <button onClick={toggleSearch} className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 flex items-center justify-center">
                 <span className="sr-only">{isSearchVisible ? "Cerrar búsqueda" : "Buscar"}</span>
                 {isSearchVisible ? 'X' : '🔍'}
               </button>
@@ -56,15 +56,15 @@ export const BlogComponent = () => {
       </div>
       {selectedPost && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <PostDetail {...selectedPost} onClose={closeModal} />
           </div>
         </div>
       )}
       
-      <div className="grid gap-4 col-span-1 lg:mx-32 mb-24">
+      <div className="grid gap-8 col-span-1 lg:mx-32 mb-24">
         {filterBlogs.map((post) => (
-          <article key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+          <article key={post.id} className="bg-slate-900 rounded-lg shadow-lg shadow-green-300 overflow-hidden">
             <Image 
               src={post.imageUrl} 
               alt={`Imagen para ${post.title}`} 
@@ -74,11 +74,11 @@ export const BlogComponent = () => {
               priority
             />
             <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-              <p className="text-gray-600 mb-4">{post.excerpt}</p>
+              <h3 className="text-slate-200 text-xl font-semibold mb-2">{post.title}</h3>
+              <p className="text-slate-400 mb-4">{post.excerpt}</p>
               <div className="flex items-center text-sm text-gray-500 mb-4">
                 <User className="h-4 w-4 mr-1" />
-                <span className="mr-4">{post.author}</span>
+                <span className="mr-4">Prof. {post.author}</span>
                 <Calendar className="h-4 w-4 mr-1" />
                 <span className="mr-4">{new Date(post.date).toLocaleDateString()}</span>
                 <span>{new Date(post.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
@@ -100,7 +100,7 @@ export const BlogComponent = () => {
 
 const PostDetail = ({ id, title, excerpt, author, date, imageUrl, onClose }) => {
   return (
-    <div className="relative" key={id}>
+    <div className="relative " key={id}>
       <button 
         onClick={onClose}
         className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
@@ -112,13 +112,13 @@ const PostDetail = ({ id, title, excerpt, author, date, imageUrl, onClose }) => 
       height={24}
       priority
       alt={title} className="w-full h-64 object-cover mb-4 rounded-lg" />
-      <h1 className="text-2xl font-bold mb-2">{title}</h1>
-      <p className="text-gray-600 mb-4">{excerpt}</p>
+      <h1 className="text-slate-200 text-2xl font-bold mb-2">{title}</h1>
+      <p className="text-slate-400 mb-4">{excerpt}</p>
       <div className="flex items-center text-sm text-gray-500 mb-4">
         <User className="h-4 w-4 mr-1" />
-        <span className="mr-4">{author}</span>
+        <span className="mr-4">Prof. {author}</span>
         <Calendar className="h-4 w-4 mr-1" />
-        <span>{date}</span>
+        <span>{new Date(date).toLocaleDateString([], { hour: '2-digit', minute: '2-digit' })}</span>
       </div>
     </div>
   )
