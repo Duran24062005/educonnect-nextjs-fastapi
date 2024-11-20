@@ -10,7 +10,7 @@ import { NavButton } from "./components/NavLink"
 
 export default function Teacher() { 
   
-  const [active, setActive] = useState(<Dashboard />) 
+  const [activ, setActive] = useState(<Dashboard />) 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -33,18 +33,18 @@ export default function Teacher() {
               lg:block
           `}>
               <nav className="flex flex-col space-y-2 p-3">
-                  <NavButton onClick={() => setActive(<Dashboard />)} icon={<LayoutDashboard size={20} />} label="Dashboard" active={active === 'Dashboard'} />
-                  <NavButton onClick={() => setActive(<Grades />)} icon={<SquareLibrary size={20} />} label="Grados" active={active === 'Grades'} />
-                  <NavButton onClick={() => setActive(<CreateBlog />)} icon={<NotebookText size={20} />} label="Blog" active={active === 'DCreateBlog'} />
-                  <NavButton onClick={() => setActive(<Teachers />)} icon={<Users size={20} />} label="Maestros" active={active === 'Teachers'} />
-                  <NavButton onClick={() => setActive(<Fathers />)} icon={<UsersRound size={20} />} label="Padres" active={active === 'Fathers'} />
-                  <NavButton onClick={() => setActive(<Students />)} icon={<UsersRound size={20} />} label="Estudiantes" active={active === 'Students'} />
+                  <NavButton onClick={() => setActive(<Dashboard />)} icon={<LayoutDashboard size={20} />} label="Dashboard" active={activ === 'Dashboard'} />
+                  <NavButton onClick={() => setActive(<Grades />)} icon={<SquareLibrary size={20} />} label="Grados" active={activ === 'Grades'} />
+                  <NavButton onClick={() => setActive(<CreateBlog />)} icon={<NotebookText size={20} />} label="Blog" active={activ === 'DCreateBlog'} />
+                  <NavButton onClick={() => setActive(<Teachers />)} icon={<Users size={20} />} label="Maestros" active={activ === 'Teachers'} />
+                  <NavButton onClick={() => setActive(<Fathers />)} icon={<UsersRound size={20} />} label="Padres" active={activ === 'Fathers'} />
+                  <NavButton onClick={() => setActive(<Students />)} icon={<UsersRound size={20} />} label="Estudiantes" active={activ === 'Students'} />
               </nav>
           </aside>
 
           {/* Main Content */}
           <main className="pl-4 lg:pl-56 pr-4 pt-12">
-              {active}
+              {activ}
           </main>
       </div>
   )
