@@ -1,9 +1,8 @@
 from ..models.teacher_models import Teacher as TeacherEntity
 from sqlalchemy.orm import Session, joinedload
-from fastapi import UploadFile
+from fastapi import UploadFile, HTTPException
 import os
 import uuid
-from fastapi import HTTPException
 
 class TeacherServices:
 
@@ -12,7 +11,12 @@ class TeacherServices:
 
     def get_teachers(self):
         """Retrieve all teachers from the database."""
-        return self.db.query(TeacherEntity).all()
+        teachers = (
+            self.db.query(TeacherEntity)
+            .options(joinedload(TeacherEntity.posts))
+            .all()
+        )
+        return teachers
 
     def get_teacher_by_id(self, teacher_id: int):
         """Retrieve a teacher by their ID."""

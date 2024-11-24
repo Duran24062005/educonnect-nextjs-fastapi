@@ -30,12 +30,12 @@ export const BlogComponent = () => {
   );
 
   return (
-    <div className="container mx-auto px-12">
+    <div className="container mx-auto px-1">
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
           <h2 className="text-white text-2xl font-semibold whitespace-nowrap">Últimas Publicaciones</h2>
           <div className="w-full sm:w-auto max-w-md">
-            <div className="flex border-2 bg-gray-300 transition-all duration-300 ease-in-out rounded-md overflow-hidden">
+            <div className="flex transition-all duration-300 ease-in-out rounded-md overflow-hidden">
               {isSearchVisible && (
                 <input 
                   id="searchInput"
@@ -56,7 +56,7 @@ export const BlogComponent = () => {
       </div>
       {selectedPost && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-slate-900 rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 rounded-lg p-8 max-w-5xl w-full max-h-[90vh] overflow-y-auto">
             <PostDetail {...selectedPost} onClose={closeModal} />
           </div>
         </div>

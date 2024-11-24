@@ -1,4 +1,8 @@
+from sqlalchemy.orm import joinedload
 from ..models.posts_model import Post as PostEntity
+from fastapi import UploadFile, HTTPException
+import uuid
+import os
 
 class PostService():
     def __init__(self, db):
@@ -6,7 +10,11 @@ class PostService():
 
     def get_posts(self):
         """Get post from database"""
-        posts = self.db.query(PostEntity).all()
+        posts = (
+            self.db.query(PostEntity)
+            .options(joinedload(PostEntity.teacher))
+            .all()
+            )
         if not posts:
             return None
         return posts
@@ -17,6 +25,20 @@ class PostService():
         if not post:
             return None
         return post
+    
+    def upload_file(self, post_id: int, file: UploadFile):
+        """Upload a file to the database."""
+        # Assuming the file is a CSV file containing teacher data
+        if not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="Invalid file type")
+        UPOLOAD_DIR = "./api/uploads"
+        os.makedirs(UPOLOAD_DIR, exist_ok=True)
+        unique_filename = f"{uuid.uuid4().hex}_{file.filename}"
+        file_path = os.path.join(UPOLOAD_DIR, unique_filename)
+        with open(file_path, "wb") as buffer:
+            buffer.write(file.file.read())
+
+        return f"http://127.0.0.1:8000/uploads/{unique_filename}"
     
     def create_post(self, post_data):
         """Create post in database"""

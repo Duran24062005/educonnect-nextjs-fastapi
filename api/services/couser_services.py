@@ -1,5 +1,5 @@
-from ..models.course_models import Course
-from sqlalchemy.orm import Session
+from ..models.course_models import Course as CourseEntity
+from sqlalchemy.orm import Session, joinedload
 
 
 class CourseServices:
@@ -9,15 +9,20 @@ class CourseServices:
 
     def get_courses(self):
         """Retrive all courses from database"""
-        return self.db.query(Course).all()
+        courses = (
+            self.db.query(CourseEntity)
+            .options(joinedload(CourseEntity.students))
+            .all()
+            )
+        return courses
     
     def get_course_by_id(self, course_id: int):
         """Retrive course by id from database"""
-        return self.db.query(Course).filter(Course.id == course_id).first()
+        return self.db.query(CourseEntity).filter(CourseEntity.id == course_id).first()
     
     def create_course(self, course_data):
         """Create a new course in database"""
-        new_course = Course(**course_data.model_dump())
+        new_course = CourseEntity(**course_data.model_dump())
         self.db.add(new_course)
         self.db.commit()
         self.db.refresh(new_course)

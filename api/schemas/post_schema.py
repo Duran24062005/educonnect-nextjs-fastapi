@@ -10,7 +10,7 @@ class PostSchema(BaseModel):
     imageUrl: str
     created_at: datetime
     updated_at: datetime
-    teacher_id: int
+    teacher: list
 
     class Config:
         from_attribute = True  # Esto permite que Pydantic trabaje con objetos de SQLAlchemy

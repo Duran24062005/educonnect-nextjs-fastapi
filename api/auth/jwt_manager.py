@@ -7,7 +7,7 @@ algorithm = "HS256"
 
 class JwtManager:
 
-    @staticmethod
+    
     def create_token(user):
         data = {
             "username": user,
@@ -15,7 +15,7 @@ class JwtManager:
         }
         return jwt.encode(data, secret_key, algorithm=algorithm)
     
-    @staticmethod
+    
     def decode_token(token):
         try:
             return jwt.decode(

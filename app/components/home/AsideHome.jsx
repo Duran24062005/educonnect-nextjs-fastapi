@@ -46,10 +46,10 @@ export const AsideHome = () => {
   if (!data) return <AsideHomeSkeleton />;
 
   const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40];
-  const dta = [75, 82, 30, 85, 30, 57];
+  const dta = [75, 82, 30, 85, 30, 87];
 
   const chartData = {
-    labels: ['Matemáticas', 'Sociales', 'Naturales', 'Historia', 'Arte'],
+    labels: ['Matemáticas', 'Sociales', 'Naturales', 'Historia', 'Arte', 'Alexi'],
     datasets: [{
       label: 'Promedio por Materia',
       data: dta,
@@ -100,7 +100,7 @@ export const AsideHome = () => {
         <p className="text-center text-slate-200">{ data }</p>
       </div>
 
-      <div className="px-4 py-3 bg-slate-700 xl:w-72 xl:m-auto rounded-md">
+      <div className="px-4 py-3 h-52 bg-slate-700 xl:w-72 xl:m-auto rounded-md">
         <h2 className="text-center text-slate-200">Rendimiento académico</h2>
         <Line data={chartData} options={chartOptions} />
       </div>
