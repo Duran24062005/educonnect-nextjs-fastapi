@@ -36,4 +36,4 @@ def create_course(course: CourseCreateSchema)->CourseCreateSchema:
 def update_course(id: int, course: CourseUpdateSchema)->CourseUpdateSchema:
     """Update course"""
     response = CourseController.update_course(id, course.model_dump())
-    return JSONResponse(content=response, status_code=200)
+    return JSONResponse(content=jsonable_encoder(response), status_code=200)

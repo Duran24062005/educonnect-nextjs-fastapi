@@ -8,7 +8,7 @@ from ..controllers.teachers_controller import TeacherController
 teacher_routes = APIRouter()
 
 
-@teacher_routes.get("/", tags=["Teachers"], response_model=list[TeacherSchema])
+@teacher_routes.get("/all", tags=["Teachers"], response_model=list[TeacherSchema])
 def get_teacher()-> list[TeacherSchema]:
     resp = TeacherController.get_teachers()
     return JSONResponse(content=jsonable_encoder(resp), status_code=200)

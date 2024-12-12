@@ -21,7 +21,7 @@ async def read_post(id: int)->PostSchema:
         return JSONResponse(content=jsonable_encoder(post), status_code=200)
     return JSONResponse(content={"Error": "Post not found"}, status_code=404)
 
-@post_routes.post('/', tags=['Posts'])
+@post_routes.post('/create', tags=['Posts'])
 async def create_post(post_data: PostCreateSchema)->PostCreateSchema:
     post = PostController.create_post(post_data)
     if post is not None:
@@ -34,5 +34,6 @@ async def update_post(id: int, post:PostUpdateSchema)->PostUpdateSchema:
 
 @post_routes.delete('/', tags=['Posts'])
 async def delete_post(id: int):
-    return JSONResponse(content={"message": "Father deleted"}, status_code=200)
+    deleted = PostController.delete_post(id)
+    return JSONResponse(content=deleted, status_code=200)
 

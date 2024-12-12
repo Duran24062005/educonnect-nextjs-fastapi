@@ -49,7 +49,7 @@ class CourseController:
         """Update course"""
         try: 
             with Session() as db:
-                return CourseServices(db).update_course(course_data)
+                return CourseServices(db).update_course(id, course_data)
         except SQLAlchemyError as e:
             print(f"Error updating course: {e}")
             return None

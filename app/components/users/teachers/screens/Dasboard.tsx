@@ -24,7 +24,7 @@ ChartJS.register(
   Legend
 );
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = ['priner periodo', 'segundo periodo', 'tercer periodo', 'cuarto periodo', 'total', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40];
 
 const chartData = {

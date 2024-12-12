@@ -56,6 +56,8 @@ class PostController:
                 deleted_post = PostService(db).delete_post(id)
                 if deleted_post:
                     return {"Message": "Post deleted succssefully"}
+                else:
+                    return {"Message": "Post not found"}
         except SQLAlchemyError as e:
             print(f"{e}")
             return None

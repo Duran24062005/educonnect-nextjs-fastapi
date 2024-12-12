@@ -5,7 +5,7 @@ import { Teachers } from "./screens/Teachers"
 import { Fathers } from "./screens/Fathers" 
 import { Students } from "./screens/Students" 
 import { Grades } from "./screens/Grades" 
-import CreateBlog from "./screens/CreateBlog" 
+import { Blogs } from "./screens/Blogs" 
 import { NavButton } from "./components/NavLink"
 
 export default function Teacher() { 
@@ -35,7 +35,7 @@ export default function Teacher() {
               <nav className="flex flex-col space-y-2 p-3">
                   <NavButton onClick={() => setActive(<Dashboard />)} icon={<LayoutDashboard size={20} />} label="Dashboard" active={activ === 'Dashboard'} />
                   <NavButton onClick={() => setActive(<Grades />)} icon={<SquareLibrary size={20} />} label="Grados" active={activ === 'Grades'} />
-                  <NavButton onClick={() => setActive(<CreateBlog />)} icon={<NotebookText size={20} />} label="Blog" active={activ === 'DCreateBlog'} />
+                  <NavButton onClick={() => setActive(<Blogs />)} icon={<NotebookText size={20} />} label="Blog" active={activ === 'DCreateBlog'} />
                   <NavButton onClick={() => setActive(<Teachers />)} icon={<Users size={20} />} label="Maestros" active={activ === 'Teachers'} />
                   <NavButton onClick={() => setActive(<Fathers />)} icon={<UsersRound size={20} />} label="Padres" active={activ === 'Fathers'} />
                   <NavButton onClick={() => setActive(<Students />)} icon={<UsersRound size={20} />} label="Estudiantes" active={activ === 'Students'} />
@@ -43,7 +43,7 @@ export default function Teacher() {
           </aside>
 
           {/* Main Content */}
-          <main className="pl-4 lg:pl-56 pr-4 pt-12">
+          <main className="pl-4 lg:pl-56 pr-4">
               {activ}
           </main>
       </div>

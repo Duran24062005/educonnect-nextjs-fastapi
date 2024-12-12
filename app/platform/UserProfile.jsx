@@ -7,8 +7,8 @@ import Student from "../components/users/Students/Student"
 export const UserProfile = () => {
   return (
     <>
-        {/* <Teacher /> */}
-        <Student />
+        <Teacher />
+        {/* <Student /> */}
     </>
   )
 }

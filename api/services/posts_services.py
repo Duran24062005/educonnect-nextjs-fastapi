@@ -63,10 +63,9 @@ class PostService():
     def delete_post(self, post_id):
         """Delete a post from database"""
         post = self.db.query(PostEntity).filter(PostEntity.id == post_id).first()
-        if not post:
+        if post:
             self.db.delete(post)
             self.db.commit()
             self.db.close()
             return True
         return False
-

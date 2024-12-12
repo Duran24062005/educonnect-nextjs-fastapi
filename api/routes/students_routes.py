@@ -8,7 +8,7 @@ from ..controllers.students_controller import StudentController
 
 students_routes = APIRouter()
 
-@students_routes.get("/", tags=["Students"], response_model=list[StudentEntity])
+@students_routes.get("/all", tags=["Students"], response_model=list[StudentEntity])
 async def get_students()-> list[StudentEntity]:
     students = StudentController.get_teachers()
     return JSONResponse(content=jsonable_encoder(students), status_code=200)
