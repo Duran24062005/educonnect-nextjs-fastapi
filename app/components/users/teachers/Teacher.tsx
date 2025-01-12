@@ -33,12 +33,12 @@ export default function Teacher() {
               lg:block
           `}>
               <nav className="flex flex-col space-y-2 p-3">
-                  <NavButton onClick={() => setActive(<Dashboard />)} icon={<LayoutDashboard size={20} />} label="Dashboard" active={activ === 'Dashboard'} />
-                  <NavButton onClick={() => setActive(<Grades />)} icon={<SquareLibrary size={20} />} label="Grados" active={activ === 'Grades'} />
-                  <NavButton onClick={() => setActive(<Blogs />)} icon={<NotebookText size={20} />} label="Blog" active={activ === 'DCreateBlog'} />
-                  <NavButton onClick={() => setActive(<Teachers />)} icon={<Users size={20} />} label="Maestros" active={activ === 'Teachers'} />
-                  <NavButton onClick={() => setActive(<Fathers />)} icon={<UsersRound size={20} />} label="Padres" active={activ === 'Fathers'} />
-                  <NavButton onClick={() => setActive(<Students />)} icon={<UsersRound size={20} />} label="Estudiantes" active={activ === 'Students'} />
+                  <NavButton onClick={() => setActive(<Dashboard />)} icon={<LayoutDashboard size={20} />} label="Dashboard" active={activ.type === Dashboard} />
+                  <NavButton onClick={() => setActive(<Grades />)} icon={<SquareLibrary size={20} />} label="Grados" active={activ.type === Grades} />
+                  <NavButton onClick={() => setActive(<Blogs />)} icon={<NotebookText size={20} />} label="Blog" active={activ.type === Blogs} />
+                  <NavButton onClick={() => setActive(<Teachers />)} icon={<Users size={20} />} label="Maestros" active={activ.type === Teachers} />
+                  <NavButton onClick={() => setActive(<Fathers />)} icon={<UsersRound size={20} />} label="Padres" active={activ.type === Fathers} />
+                  <NavButton onClick={() => setActive(<Students />)} icon={<UsersRound size={20} />} label="Estudiantes" active={activ.type === Students} />
               </nav>
           </aside>
 

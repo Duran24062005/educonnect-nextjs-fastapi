@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchCourses } from '@/app/api/apis/courses'
 import AsideHomeSkeleton from '@/app/components/home/skeletons/AsideHomeSkeleton'
-import { Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -100,9 +100,9 @@ export const AsideHome = () => {
         <p className="text-center text-slate-200">{ data }</p>
       </div>
 
-      <div className="px-4 py-3 h-52 bg-slate-700 xl:w-72 xl:m-auto rounded-md">
+      <div className="px-4 py-3 h-52 bg-slate-700 xl:w-72 xl:h-72 xl:m-auto rounded-md">
         <h2 className="text-center text-slate-200">Rendimiento académico</h2>
-        <Line data={chartData} options={chartOptions} />
+        <Bar data={chartData} options={chartOptions} className='xl:h-60'/>
       </div>
       
     </div>

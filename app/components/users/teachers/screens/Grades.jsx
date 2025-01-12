@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Students } from "./Students"
-import { List } from "./layout/List"
+import { Dashboard } from "./layout/Dasboard"
 
 
 export const Grades = () => {
@@ -59,6 +59,9 @@ export const Grades = () => {
     },
   ]
 
+  const getStudentByGrade = (stdn) => {
+
+  }
 
 
   return (
@@ -67,16 +70,16 @@ export const Grades = () => {
         <div className="grid grid-cols-3 md:grid-cols lg:grid-cols-4 gap-2">
           {/* {console.log(cards)} */}
             {cards.map((card, index) => (
-            <button key={index} onClick={ () => setChange(<List />) } className="bg-slate-900 shadow-md rounded-lg overflow-hidden">
+            <button key={index} onClick={ () => setChange(<Dashboard grad={6}/>) } className="bg-slate-900 shadow-md rounded-lg overflow-hidden">
               <div className="py-6">
                 <h2 className="text-xl font-bold m-auto text-slate-200">{card.name}</h2>
-                <p className="text-slate-200 text-sm m-auto">Temas</p>
+                {/* <p className="text-slate-200 text-sm m-auto">Temas</p>
                 <p className="text-slate-300">{card.description}</p>
                 <ul>
                   {card.temas.map((tema, ind) => (
                     <li key={ind} className="text-slate-400">{tema.name}</li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
             </button>
             ))}
