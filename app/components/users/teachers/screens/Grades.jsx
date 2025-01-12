@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { Students } from "./Students"
+import { List } from "./layout/List"
+
 
 export const Grades = () => {
 
-  const [ change, setChange ] = useState('')
+  const [ change, setChange ] = useState()
   const cards = [
     { 
       id: 6,
@@ -65,7 +67,7 @@ export const Grades = () => {
         <div className="grid grid-cols-3 md:grid-cols lg:grid-cols-4 gap-2">
           {/* {console.log(cards)} */}
             {cards.map((card, index) => (
-            <button key={index} onClick={ () => setChange(<Students />) } className="bg-slate-900 shadow-md rounded-lg overflow-hidden">
+            <button key={index} onClick={ () => setChange(<List />) } className="bg-slate-900 shadow-md rounded-lg overflow-hidden">
               <div className="py-6">
                 <h2 className="text-xl font-bold m-auto text-slate-200">{card.name}</h2>
                 <p className="text-slate-200 text-sm m-auto">Temas</p>

@@ -32,11 +32,11 @@ class PostController:
                 return None
             return post
         
-    def create_post(data):
+    def create_post(title, content, teacher_id, img):
         """Create a new post in the database"""
         try:
             with Session() as db:
-                post = PostService(db).create_post(data)
+                post = PostService(db).create_post(title, content, teacher_id, img)
                 return post
         except SQLAlchemyError as e:
             print(f"Error creating post: {e}")

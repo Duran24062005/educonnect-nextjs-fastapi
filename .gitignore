@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+# uoloads image directory
+/uploads
+
 # testing
 /coverage
 

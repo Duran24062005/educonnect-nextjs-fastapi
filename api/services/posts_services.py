@@ -3,10 +3,14 @@ from ..models.posts_model import Post as PostEntity
 from fastapi import UploadFile, HTTPException
 import uuid
 import os
+import json
+from .FileServices import FileService
+from ..config.database import Session
 
 class PostService():
     def __init__(self, db):
         self.db = db
+        self.file_service = FileService(db)
 
     def get_posts(self):
         """Get post from database"""
@@ -40,9 +44,16 @@ class PostService():
 
         return f"http://127.0.0.1:8000/uploads/{unique_filename}"
     
-    def create_post(self, post_data):
+    def create_post(self, title, content, teacher_id, image):
         """Create post in database"""
-        new_post = PostEntity(**post_data.model_dump())
+        image_url = self.file_service.upload_file_post(image)
+        # Crear el objeto para la base de datos
+        new_post = PostEntity(
+            title=title,
+            content=content,
+            teacher_id=teacher_id,
+            imageUrl=image_url
+        )
         self.db.add(new_post)
         self.db.commit()
         self.db.refresh(new_post)

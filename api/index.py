@@ -11,9 +11,13 @@ from .routes.course_routes import course_routes
 from .routes.grades_routes import grades_routes
 from .config.database import Base, engine
 from .routes.auth_routes import auth_routes
+from dotenv import load_dotenv
 
 # UPOLOAD_DIR = "/uploads"
 # os.makedirs(UPOLOAD_DIR, exist_ok=True)
+
+# Cargar las variables de entorno
+load_dotenv()
 
 ### Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")

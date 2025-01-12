@@ -19,7 +19,6 @@ class PostSchema(BaseModel):
 class PostCreateSchema(BaseModel):
     title: str
     content: str
-    imageUrl: str
     teacher_id: int
 
 # Esquema para actualizar un Post

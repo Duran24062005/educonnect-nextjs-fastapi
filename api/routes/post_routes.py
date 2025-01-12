@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, Form
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from ..controllers.posts_controller import PostController
@@ -22,8 +22,13 @@ async def read_post(id: int)->PostSchema:
     return JSONResponse(content={"Error": "Post not found"}, status_code=404)
 
 @post_routes.post('/create', tags=['Posts'])
-async def create_post(post_data: PostCreateSchema)->PostCreateSchema:
-    post = PostController.create_post(post_data)
+async def create_post(
+    title: str = Form(...),
+    content: str = Form(...),
+    teacher_id: int = Form(...),
+    image: UploadFile = Form(None)
+    ):
+    post = PostController.create_post(title, content, teacher_id, image)
     if post is not None:
         return JSONResponse(content=jsonable_encoder(post), status_code=201)
     return JSONResponse(content={"Error": "server error"}, status_code=200)
