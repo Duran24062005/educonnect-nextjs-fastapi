@@ -1,13 +1,17 @@
+import "./global.css";
 import { Inter } from "next/font/google";
+require('dotenv').config({
+    path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development',
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  ttitle: "EduConnect Platform",
+  title: "LogIn",
   description: "This is a Front-end in Next.js for the EduConnect application",
 };
 
-export default function platform({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -27,7 +27,7 @@ class Student(BaseModel):
                 "birth_date": "1990-01-01",
                 "course_id": 5,
                 "email": "john@example.com",
-                "phone": "1234567890",
+                "phone": "3054678904",
                 "password": "password123",
                 "imageUrl": "https://example.com/image.jpg",
                 "created_at": "2022-01-01 00:00:00",
@@ -60,7 +60,7 @@ class CreateStudent(BaseModel):
                 "birth_date": "1990-01-01",
                 "course_id": 5,
                 "email": "john@example.com",
-                "phone": "1234567890",
+                "phone": "3054678904",
                 "password": "password123",
                 "imageUrl": "https://images.unsplash.com/photo-1725867253101-a78ead1ce5e3?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             }

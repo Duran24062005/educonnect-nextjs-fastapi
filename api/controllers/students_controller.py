@@ -5,7 +5,7 @@ from ..config.database import Session
 
 class StudentController():
 
-    def get_teachers()->list[Student]:
+    def get_students()->list[Student]:
         """Get all teachers from the database.
         Returns:
         list[Teacher]: A list of all teachers.

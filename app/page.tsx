@@ -1,44 +1,19 @@
-import React, { useState } from 'react';
+import Header from './components/Header'
+import Hero from './components/Hero'
+import Features from './components/Features'
+import About from './components/About'
+import Footer from './components/Footer'
 
-const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Aquí puedes manejar el envío del formulario, por ejemplo, hacer una llamada a una API
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
-
+export default function Home() {
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Correo Electrónico:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Iniciar Sesión</button>
-      </form>
+    <div className="min-h-screen bg-background text-foreground">
+      <Header />
+      <main>
+        <Hero />
+        <Features />
+        <About />
+      </main>
+      <Footer />
     </div>
-  );
-};
-
-export default LoginPage;
+  )
+}

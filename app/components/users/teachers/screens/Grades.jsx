@@ -32,6 +32,32 @@ export const Grades = () => {
 
     },
     {
+      id: 8,
+      name: "Octavo",
+      description:
+      "Ingeniero de Backend especializado en Node.js y bases de datos NoSQL",
+      image: "https://picsum.photos/200/300",
+      temas: [
+        { id: 1, name: "HTML" },
+        { id: 2, name: "CSS" },
+        { id: 3, name: "JavaScript" },
+      ]
+
+    },
+    {
+      id: 9,
+      name: "Noveno",
+      description:
+      "Ingeniero de Backend especializado en Node.js y bases de datos NoSQL",
+      image: "https://picsum.photos/200/300",
+      temas: [
+        { id: 1, name: "HTML" },
+        { id: 2, name: "CSS" },
+        { id: 3, name: "JavaScript" },
+      ]
+
+    },
+    {
       id: 10,
       name: "decimo",
       description:
@@ -71,8 +97,11 @@ export const Grades = () => {
           {/* {console.log(cards)} */}
             {cards.map((card, index) => (
             <button key={index} onClick={ () => setChange(<Dashboard grad={6}/>) } className="bg-slate-900 shadow-md rounded-lg overflow-hidden">
-              <div className="py-6">
+              <div className="py-6 flex justify-between">
                 <h2 className="text-xl font-bold m-auto text-slate-200">{card.name}</h2>
+                <div className="rounded-full text-slate-400 w-12 h-12">
+                  <img src={card.image} alt={card.name} className="-ml-16 w-16 h-16 rounded-md" />
+                </div>
                 {/* <p className="text-slate-200 text-sm m-auto">Temas</p>
                 <p className="text-slate-300">{card.description}</p>
                 <ul>

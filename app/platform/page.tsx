@@ -8,13 +8,16 @@ import { JSX, useState } from "react";
 import user from '@/public/assets/img/estudiante.jpeg';
 import EduConnectLogo from "@/public/assets/img/EduConectLogo.png";
 import logo from "@/public/assets/react.svg";
+import { BellIcon, CogIcon, HelpCircleIcon } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+
 
 export default function Platform() {
 
   const [ change, setChange ] = useState(<HomeComponent />)
   const [ isChnge, setIsChange ] = useState();
 
-  const changeState = (screen) => {
+  const changeState = (screen: JSX.Element) => {
     setChange(screen)
   }
 
@@ -28,6 +31,15 @@ export default function Platform() {
             <Image src={ logo } alt="" />
           </div>
           <div className='flex'>
+              <Button variant="ghost" size="icon" className="text-gray-300">
+                <BellIcon className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="text-gray-300">
+                <CogIcon className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="text-gray-300">
+                <HelpCircleIcon className="h-5 w-5" />
+              </Button>
             <button onClick={ () => changeState(<UserProfile />) } className='flex'>
               <h2 className='text-md mr-2 mt-3'>Alexi</h2>
               <Image className='w-12 h-12 rounded-full' src={ user } alt="" />

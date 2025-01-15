@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Calendar, User, ChevronRight, X } from 'lucide-react'
 import { blogPosts } from '@/app/data/Blogs.js'
 import { fetchBlogs } from '@/app/api/apis/blogs'
+import BlogSkeleton from './skeletons/BlogSkeleton'
 
 export const BlogComponent = () => {
   const [selectedPost, setSelectedPost] = useState(null)
@@ -21,8 +22,8 @@ export const BlogComponent = () => {
                 setBlogs(data)
                 setLoading(false)
             } catch (error) {
-                console.error('Error fetching students: ', err)
-                setError('No se pudo cargar la lista de estudiantes')
+                console.error('Error fetching blogs: ', err)
+                setError('No se pudo cargar la lista de Blogs')
             } finally {
                 setLoading(false)
             }
@@ -53,7 +54,7 @@ export const BlogComponent = () => {
   console.log(blogs, filterBlogs)
 
   if (loading) {
-    return <div className="text-center text-white">Cargando estudiantes...</div>
+    return <BlogSkeleton />
   }
 
   if (error) {
@@ -100,15 +101,15 @@ export const BlogComponent = () => {
             <img 
               src={post.imageUrl} 
               alt={`Imagen para ${post.title}`} 
-              className="w-full h-48 object-cover"
+              className="w-full lg:h-80 object-cover"
               width={100}
               height={24}
               priority
             />
             <div className="p-6">
-              <h3 className="text-slate-200 text-xl font-semibold mb-2">{post.title}</h3>
-              <p className="text-slate-400 mb-4">{post.content}</p>
-              <div className="flex items-center text-sm text-gray-500 mb-4">
+              <h3 className="text-slate-200 text-xl font-semibold mb-1">{post.title}</h3>
+              <p className="text-slate-400 mb-2">{post.content}</p>
+              <div className="flex items-center text-sm text-gray-500 mb-1">
                 <User className="h-4 w-4 mr-1" />
                 <span className="mr-4">Prof. {post.teacher.first_name}</span>
                 <Calendar className="h-4 w-4 mr-1" />
@@ -143,7 +144,7 @@ const PostDetail = ({ id, title, content, teacher, created_at, imageUrl, onClose
       width={100}
       height={24}
       priority
-      alt={title} className="w-full h-64 object-cover mb-4 rounded-lg" />
+      alt={title} className="w-full h-96 object-cover mb-4 rounded-lg" />
       <h1 className="text-slate-200 text-2xl font-bold mb-2">{title}</h1>
       <p className="text-slate-400 mb-4">{content}</p>
       <div className="flex items-center text-sm text-gray-500 mb-4">

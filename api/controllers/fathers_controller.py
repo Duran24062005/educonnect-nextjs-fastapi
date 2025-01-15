@@ -8,11 +8,11 @@ class FatherController():
         self.father_services = FatherService()
         self.session = Session()
 
-    def get_teachers(self)->list[Father]:
+    def get_fathers(self)->list[Father]:
         """Get all teachers from the database.
         Returns:
         list[Teacher]: A list of all teachers.
         """
         db = self.session()
-        teacher_services = self.father_services(db).get_teachers()
+        teacher_services = self.father_services(db).get_fathers()
         return teacher_services
