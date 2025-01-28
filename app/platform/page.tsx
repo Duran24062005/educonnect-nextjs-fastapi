@@ -10,15 +10,21 @@ import EduConnectLogo from "@/public/assets/img/EduConectLogo.png";
 import logo from "@/public/assets/react.svg";
 import { BellIcon, CogIcon, HelpCircleIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import ProfileModal from "./components/UserModal";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 
 
 export default function Platform() {
 
   const [ change, setChange ] = useState(<HomeComponent />)
-  const [ isChnge, setIsChange ] = useState();
+  const [ isChnge, setIsChange ] = useState(false);
 
   const changeState = (screen: JSX.Element) => {
     setChange(screen)
+  }
+
+  const changeProfile = (profile: boolean) => {
+    setIsChange(profile)
   }
 
   return (
@@ -31,26 +37,26 @@ export default function Platform() {
             <Image src={ logo } alt="" />
           </div>
           <div className='flex'>
-              <Button variant="ghost" size="icon" className="text-gray-300">
-                <BellIcon className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-gray-300">
-                <CogIcon className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-gray-300">
-                <HelpCircleIcon className="h-5 w-5" />
-              </Button>
-            <button onClick={ () => changeState(<UserProfile />) } className='flex'>
+            <button onClick={ () => changeState(<UserProfile />) } >
               <h2 className='text-md mr-2 mt-3'>Alexi</h2>
-              <Image className='w-12 h-12 rounded-full' src={ user } alt="" />
             </button>
+            {/* <Image className='w-12 h-12 rounded-full' src={ user } alt="" /> */}
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full" title="Profile Dropdown" onClick={ ()=> changeProfile(!setIsChange) }>
+              <Avatar className="h-8 w-8">
+                <AvatarImage src="/app/public/assets/img/EduConectLogo.png" alt="@usuario" />
+                <AvatarFallback>US</AvatarFallback>
+              </Avatar>
+            </Button>
           </div>
         </div>
       </header>
 
+      { isChnge && (
+        <ProfileModal />
+      ) }
       { change }
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
