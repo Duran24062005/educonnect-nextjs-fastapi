@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Students } from "./Students"
 import { Dashboard } from "./layout/Dasboard"
+import Image from "next/image"
 
 
 export const Grades = () => {
@@ -100,7 +101,7 @@ export const Grades = () => {
               <div className="py-6 flex justify-between">
                 <h2 className="text-xl font-bold m-auto text-slate-200">{card.name}</h2>
                 <div className="rounded-full text-slate-400 w-12 h-12">
-                  <img src={card.image} alt={card.name} className="-ml-16 w-16 h-16 rounded-md" />
+                  <Image src={card.image} alt={card.name} className="-ml-16 w-16 h-16 rounded-md" />
                 </div>
                 {/* <p className="text-slate-200 text-sm m-auto">Temas</p>
                 <p className="text-slate-300">{card.description}</p>

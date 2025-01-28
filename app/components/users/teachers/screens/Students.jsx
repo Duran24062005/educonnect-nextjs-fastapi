@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { fetchStudents } from '@/app/api/apis/students'
+import Image from 'next/image'
 
 export const Students = () => {
 
@@ -53,7 +54,7 @@ export const Students = () => {
               key={student.id} // Usar 'id' si está disponible
               className="bg-slate-700 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105"
             >
-              <img
+              <Image
                 src={student.imageUrl || '/default-image.png'} // Imagen por defecto si falta
                 alt={`Foto de ${student.firstname || 'Estudiante'}`}
                 className="w-full h-48 object-cover"

@@ -98,7 +98,7 @@ export const BlogComponent = () => {
       <div className="grid gap-8 col-span-1 lg:mx-32 mb-24">
         {filterBlogs.map((post) => (
           <article key={post.id} className="bg-slate-900 rounded-lg shadow-lg shadow-green-300 overflow-hidden">
-            <img 
+            <Image
               src={post.imageUrl} 
               alt={`Imagen para ${post.title}`} 
               className="w-full lg:h-80 object-cover"
@@ -140,7 +140,7 @@ const PostDetail = ({ id, title, content, teacher, created_at, imageUrl, onClose
       >
         <X className="h-6 w-6" />
       </button>
-      <img src={imageUrl} 
+      <Image src={imageUrl} 
       width={100}
       height={24}
       priority
