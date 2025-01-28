@@ -23,7 +23,7 @@ export default function CreateBlog() {
     const formData = new FormData();
 
     // Asegurar que todos los campos estén correctamente definidos
-    formData.append('teacher_id', 1); // Teacher ID como número en formato de cadena
+    formData.append('teacher_id', String(1)); // Teacher ID como número en formato de cadena
     formData.append('title', data.title);
     formData.append('content', data.content);
 
@@ -73,7 +73,7 @@ export default function CreateBlog() {
               {...register('title', { required: 'El título es obligatorio' })}
               className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
             />
-            {errors.title && <span className="text-red-500 text-sm">{errors.title.message}</span>}
+            {/* {errors.title && <span className="text-red-500 text-sm">{errors.title.message}</span>} */}
           </div>
           <div className="space-y-2">
             <Label htmlFor="content" className="text-white">Contenido</Label>
@@ -83,7 +83,7 @@ export default function CreateBlog() {
               {...register('content', { required: 'El contenido es obligatorio' })}
               className="min-h-[200px] bg-white/5 border-whit/*}e/10 text-white placeholder:text-white/50"
             />
-            {errors.content && <span className="text-red-500 text-sm">{errors.content.message}</span>}
+            {/* {errors.content && <span className="text-red-500 text-sm">{errors.content}</span>} */}
           </div>
           <div className="space-y-2">
             <Label htmlFor="image" className="text-white">Imagen del Post</Label>
