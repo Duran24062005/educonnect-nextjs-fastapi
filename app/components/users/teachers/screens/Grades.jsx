@@ -12,7 +12,7 @@ export const Grades = () => {
       id: 6,
       name: "Sexto",
       description: "Desarrolladora Frontend con experiencia en React y Vue.js",
-      image: "https://picsum.photos/200/300",
+      image: "https://picsum.photos/16/16",
       temas: [
         { id: 1, name: "HTML" },
         { id: 2, name: "CSS" },
@@ -24,7 +24,7 @@ export const Grades = () => {
       name: "Septimo",
       description:
       "Ingeniero de Backend especializado en Node.js y bases de datos NoSQL",
-      image: "https://picsum.photos/200/300",
+      image: "https://picsum.photos/16/16",
       temas: [
         { id: 1, name: "HTML" },
         { id: 2, name: "CSS" },
@@ -37,7 +37,7 @@ export const Grades = () => {
       name: "Octavo",
       description:
       "Ingeniero de Backend especializado en Node.js y bases de datos NoSQL",
-      image: "https://picsum.photos/200/300",
+      image: "https://picsum.photos/16/16",
       temas: [
         { id: 1, name: "HTML" },
         { id: 2, name: "CSS" },
@@ -50,7 +50,7 @@ export const Grades = () => {
       name: "Noveno",
       description:
       "Ingeniero de Backend especializado en Node.js y bases de datos NoSQL",
-      image: "https://picsum.photos/200/300",
+      image: "https://picsum.photos/16/16",
       temas: [
         { id: 1, name: "HTML" },
         { id: 2, name: "CSS" },
@@ -63,7 +63,7 @@ export const Grades = () => {
       name: "decimo",
       description:
       "Diseñadora UX/UI con un enfoque en accesibilidad y diseño inclusivo",
-      image: "https://picsum.photos/200/300",
+      image: "https://picsum.photos/16/16",
       temas: [
         { id: 1, name: "HTML" },
         { id: 2, name: "CSS" },
@@ -76,7 +76,7 @@ export const Grades = () => {
       name: "Undecimo",
       description:
       "DevOps Engineer con experiencia en AWS y Docker",
-      image: "https://picsum.photos/200/300",
+      image: "https://picsum.photos/16/16",
       temas: [
         { id: 1, name: "HTML" },
         { id: 2, name: "CSS" },
@@ -101,7 +101,7 @@ export const Grades = () => {
               <div className="py-6 flex justify-between">
                 <h2 className="text-xl font-bold m-auto text-slate-200">{card.name}</h2>
                 <div className="rounded-full text-slate-400 w-12 h-12">
-                  <Image src={card.image} alt={card.name} className="-ml-16 w-16 h-16 rounded-md" />
+                  {/* <Image src={card.image} alt={card.name} className="-ml-16 w-16 h-16 rounded-md" width={16} height={16}/> */}
                 </div>
                 {/* <p className="text-slate-200 text-sm m-auto">Temas</p>
                 <p className="text-slate-300">{card.description}</p>
