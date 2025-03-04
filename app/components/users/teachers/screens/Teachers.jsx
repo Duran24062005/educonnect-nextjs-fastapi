@@ -52,7 +52,7 @@ export const Teachers = () => {
               key={teacher.id} // Usar 'id' si está disponible
               className="bg-slate-700 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105"
             >
-              <Image
+              <img
                 src={teacher.imageUrl || '/default-image.png'} // Imagen por defecto si falta
                 alt={`Foto de ${teacher.first_name || 'Profesor'}`}
                 className="w-full h-48 object-cover"

@@ -3,6 +3,14 @@ from ..services.teachers_services import TeacherServices
 from ..config.database import Session
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi import UploadFile
+from ..send_email.send_email import SendCustomEmail
+
+h = """
+    This class is a controller that handles all the logic of the teachers.
+    It is responsible for receiving the data sent by the client, processing it, and sending it to the services.
+    The services are responsible for interacting with the database.
+    The controller is responsible for handling the response from the services and sending it back to the client.
+"""
 
 class TeacherController:
 
@@ -37,7 +45,17 @@ class TeacherController:
         """Create a new teacher in the database."""
         try:
             with Session() as db:
-                return TeacherServices(db).create_teacher(teacher)
+                created = TeacherServices(db).create_teacher(teacher)
+                if created:
+                    received = SendCustomEmail(created.email, f"Bienvenido a la plataforma {created.first_name}", "welcome_v1", {
+                        "first_name": created.first_name,
+                        "last_name": created.last_name,
+                        "verification_link": "https://my-web-production-xi.vercel.app/"
+                        # "http://localhost:8000/verify"
+                        # Welcome to the platform
+                    }).send_email()
+                    print(received)
+                    return created
         except SQLAlchemyError as e:
             print(f"Error creating teacher: {e}")
             return None

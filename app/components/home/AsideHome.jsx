@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchCourses } from '@/app/api/apis/courses'
 import AsideHomeSkeleton from '@/app/components/home/skeletons/AsideHomeSkeleton'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -46,10 +46,10 @@ export const AsideHome = () => {
   if (!data) return <AsideHomeSkeleton />;
 
   const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40];
-  const dta = [75, 82, 30, 85, 30, 87];
+  const dta = [70, 20, 30, 85, 30, 50];
 
   const chartData = {
-    labels: ['Matemáticas', 'Sociales', 'Naturales', 'Historia', 'Arte', 'Alexi'],
+    labels: ['Matemáticas', 'Sociales', 'Naturales', 'Español', 'Artistica', 'Ingles'],
     datasets: [{
       label: 'Promedio por Materia',
       data: dta,
@@ -100,9 +100,11 @@ export const AsideHome = () => {
         <p className="text-center text-slate-200">{ data }</p>
       </div>
 
-      <div className="px-4 py-3 h-52 bg-slate-700 xl:w-72 xl:h-72 xl:m-auto rounded-md">
+      <div className="px-1 pt-3 h-52 bg-slate-700 xl:w-72 xl:h-60 xl:m-auto rounded-md">
         <h2 className="text-center text-slate-200">Rendimiento académico</h2>
-        <Bar data={chartData} options={chartOptions} className='xl:h-60'/>
+        <div className="w-full h-full">
+          <Line data={chartData} options={chartOptions} />
+        </div>
       </div>
       
     </div>
