@@ -39,7 +39,7 @@ class SendCustomEmail:
         self.subject = subject
         self.template_name = template_name
         self.data = data
-        self.template_manager = EmailTemplateManager()
+        # self.template_manager = EmailTemplateManager()
 
     def send_email(self):
         # Load the template
