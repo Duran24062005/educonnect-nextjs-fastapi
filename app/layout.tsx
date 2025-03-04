@@ -18,6 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <link rel="icon" href="@/public/react.svg" />
+        <link rel="preconnect" href="@/public/react.svg" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )

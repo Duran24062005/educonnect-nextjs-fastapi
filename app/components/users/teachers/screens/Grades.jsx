@@ -93,6 +93,27 @@ export const Grades = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+<<<<<<< HEAD
+      <h1 className="text-3xl font-bold text-center mb-6 bg-gradient-to-tr from-blue-600 to-yellow-400 w-full max-w-xs mx-auto py-2 rounded-lg text-white">
+        Grados
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        {cards.map((card, index) => (
+          <button
+            key={index}
+            onClick={() => setChange(<Dashboard grad={index + 1} />)}
+            className="bg-slate-900 shadow-md rounded-lg overflow-hidden hover:bg-slate-800 transition-colors"
+          >
+            <div className="p-4 flex items-center justify-between">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-200">{card.name}</h2>
+              <div className="flex-shrink-0 ml-2">
+                <img
+                  src={card.image || "/placeholder.svg"}
+                  alt={card.name}
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-md object-cover"
+                />
+=======
         <h1 className="text-3xl font-bold text-center mb-6 bg-gradient-to-tr from-blue-600 to-yellow-400 w-60 m-auto">Grados</h1>
         <div className="grid grid-cols-3 md:grid-cols lg:grid-cols-4 gap-2">
           {/* {console.log(cards)} */}
@@ -110,11 +131,14 @@ export const Grades = () => {
                     <li key={ind} className="text-slate-400">{tema.name}</li>
                   ))}
                 </ul> */}
+>>>>>>> main
               </div>
-            </button>
-            ))}
-        </div>
-          { change }
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {change}
     </div>
   )
 }

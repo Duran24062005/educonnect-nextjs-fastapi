@@ -164,43 +164,91 @@ export const Dashboard = (grade: number) => {
   };
 
   return (
-    <div className='flex justify-center'>
-      <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4 text-center text-slate-300">Tabla de Estudiantes</h1>
-        <div className="overflow-x-auto">
-          <table className="table-auto border-collapse border border-gray-200 w-full mb-8">
+    <div className="w-full max-w-full px-4 py-6">
+      <h1 className="text-xl sm:text-2xl font-bold text-center text-slate-300">Tabla de Estudiantes</h1>
+      <p className='mb-4 text-center text-slate-500'>Sistema de Calificaciones</p>
+
+      {/* Card view for small screens */}
+      <div className="block sm:hidden space-y-4">
+        {students.map((student, index) => (
+          <div key={index} className="bg-slate-900 rounded-lg p-4 text-gray-300">
+            <div className="flex justify-between mb-2">
+              <span className="font-bold">
+                {index + 1}. {student.name}
+              </span>
+              <span className="font-bold">Prom: {calculateAverage(student.id)}</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {["N1", "N2", "N3", "N4"].map((gradeType) => (
+                <div key={gradeType} className="flex justify-between items-center">
+                  <label className="text-sm">Matemáticas {gradeType}:</label>
+                  <input
+                    className="focus:outline-none bg-slate-800 rounded px-2 py-1 w-16 text-right"
+                    type="number"
+                    max={10.0}
+                    min={0}
+                    step="0.1"
+                    title={`Ingrese una calificación de Matemáticas ${gradeType}`}
+                    placeholder="---"
+                    value={grades[student.id]?.[gradeType] || ""}
+                    onChange={(e) => handleGradeChange(student.id, gradeType, e.target.value)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+        <div className="bg-gray-400 text-center py-2 rounded">Primer periodo</div>
+      </div>
+
+      {/* Table view for larger screens */}
+      <div className="hidden sm:block">
+        <div className="overflow-x-auto rounded-lg shadow">
+          <table className="min-w-full border-collapse">
             <thead>
-              <tr className="bg-slate-400">
-                <th className="border border-gray-300 px-4 py-2 text-left">ID</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Nombre</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Matemáticas N1</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Matemáticas N2</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Matemáticas N3</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Matemáticas N4</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Promedio</th>
+              <tr className="bg-slate-700">
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">ID</th>
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">
+                  Nombre
+                </th>
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">
+                  Mat. N1
+                </th>
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">
+                  Mat. N2
+                </th>
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">
+                  Mat. N3
+                </th>
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">
+                  Mat. N4
+                </th>
+                <th className="border border-slate-600 px-3 py-2 text-left text-xs md:text-sm text-slate-300">
+                  Promedio
+                </th>
               </tr>
             </thead>
             <tbody>
               {students.map((student, index) => (
-                <tr key={index} className='text-gray-300'>
-                  <td className="border border-gray-200 px-4 py-2 bg-slate-900">{index + 1}</td>
-                  <td className="border border-gray-200 px-4 py-2 bg-slate-900">{student.name}</td>
-                  {['N1', 'N2', 'N3', 'N4'].map((gradeType) => (
-                    <td key={gradeType} className="border border-gray-200 px-4 py-2 bg-slate-900">
-                      <input 
-                        className='focus:outline-none bg-slate-900 w-32'
+                <tr key={index} className="text-gray-300 hover:bg-slate-800">
+                  <td className="border border-slate-700 px-3 py-2 bg-slate-900 text-xs md:text-sm">{index + 1}</td>
+                  <td className="border border-slate-700 px-3 py-2 bg-slate-900 text-xs md:text-sm">{student.name}</td>
+                  {["N1", "N2", "N3", "N4"].map((gradeType) => (
+                    <td key={gradeType} className="border border-slate-700 px-3 py-2 bg-slate-900">
+                      <input
+                        className="focus:outline-none bg-slate-900 w-full text-xs md:text-sm"
                         type="number"
                         max={10.0}
                         min={0}
                         step="0.1"
                         title={`Ingrese una calificación de Matemáticas ${gradeType}`}
                         placeholder="---"
-                        value={grades[student.id]?.[gradeType] || ''}
+                        value={grades[student.id]?.[gradeType] || ""}
                         onChange={(e) => handleGradeChange(student.id, gradeType, e.target.value)}
                       />
                     </td>
                   ))}
-                  <td className="border border-gray-200 px-4 py-2 bg-slate-900">
+                  <td className="border border-slate-700 px-3 py-2 bg-slate-900 text-center text-xs md:text-sm">
                     {calculateAverage(student.id)}
                   </td>
                 </tr>
@@ -208,7 +256,7 @@ export const Dashboard = (grade: number) => {
             </tbody>
             <tfoot>
               <tr className="bg-gray-400">
-                <td className="border border-gray-300 px-4 py-2 text-center" colSpan={8}>
+                <td className="border border-gray-500 px-3 py-2 text-center text-xs md:text-sm" colSpan={7}>
                   Primer periodo
                 </td>
               </tr>
