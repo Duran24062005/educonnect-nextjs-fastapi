@@ -58,6 +58,8 @@ export const Students = () => {
                 src={student.imageUrl || '/default-image.png'} // Imagen por defecto si falta
                 alt={`Foto de ${student.firstname || 'Estudiante'}`}
                 className="w-full h-48 object-cover"
+                width={300}
+                height={48}
               />
               <div className="p-4">
                 <h2 className="text-xl font-semibold text-slate-200">

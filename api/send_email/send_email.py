@@ -5,8 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# Path: api/send_email/send_email.py
-# Description: This script sends an email using the SMTP protocol.
+# Cargar variables de entorno
 dotenv.load_dotenv()
 
 sender_email = os.getenv('USER')
@@ -18,7 +17,6 @@ class SendEmail:
         self.body = body if isinstance(body, str) else str(body)
 
     def send_email(self):
-        # Create a text message
         msg = MIMEMultipart()
         msg['From'] = sender_email
         msg['To'] = self.receiver_email
@@ -41,6 +39,7 @@ class SendCustomEmail:
         self.subject = subject
         self.template_name = template_name
         self.data = data
+        self.template_manager = EmailTemplateManager()
 
     def send_email(self):
         # Load the template
