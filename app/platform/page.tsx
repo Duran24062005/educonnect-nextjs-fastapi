@@ -43,8 +43,8 @@ export default function Platform() {
             {/* <Image className='w-12 h-12 rounded-full' src={ user } alt="" /> */}
             <Button variant="ghost" className="relative h-8 w-8 rounded-full" title="Profile Dropdown" onClick={ ()=> changeProfile(!setIsChange) }>
               <Avatar className="h-8 w-8">
-                <AvatarImage src="/app/public/assets/img/EduConectLogo.png" alt="@usuario" />
-                <AvatarFallback>US</AvatarFallback>
+                <AvatarImage src="./app/public/assets/img/EduConectLogo.png" alt="@usuario" />
+                {/* <AvatarFallback>US</AvatarFallback> */}
               </Avatar>
             </Button>
           </div>

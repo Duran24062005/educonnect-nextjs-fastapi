@@ -72,7 +72,7 @@ const LoginPage = () => {
               <p className='text-center text-slate-400 mb-6'>Inicie sesión para continuar</p>
               <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-200">Correo electrónico</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-black">Correo electrónico</label>
                   <input
                     type="email"
                     id="email"
