@@ -45,11 +45,11 @@ export const AsideHome = () => {
   if (error) return <p>{error}</p>;
   if (!data) return <AsideHomeSkeleton />;
 
-  const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40];
-  const dta = [70, 20, 30, 85, 30, 50];
+  const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40, 39];
+  const dta = [70, 20, 30, 85, 30, 55, 25];
 
   const chartData = {
-    labels: ['Matemáticas', 'Sociales', 'Naturales', 'Español', 'Artistica', 'Ingles'],
+    labels: ['Ingles', 'Matemáticas', 'Sociales', 'Naturales', 'Edu. Fisica', 'Artistica', 'Español'],
     datasets: [{
       label: 'Promedio por Materia',
       data: dta,

@@ -1,11 +1,12 @@
 import { useState } from "react" 
-import { Users, LayoutDashboard, SquareLibrary, UsersRound, NotebookText, Menu, X } from 'lucide-react' 
+import { Users, SquareUserRound, LayoutDashboard, SquareLibrary, UsersRound, NotebookText, Menu, X, Settings } from 'lucide-react' 
 import { Dashboard } from "./screens/Dasboard" 
 import { Teachers } from "./screens/Teachers" 
 import { Fathers } from "./screens/Fathers" 
 import { Students } from "./screens/Students" 
 import { Grades } from "./screens/Grades" 
 import { Blogs } from "./screens/Blogs" 
+import Settings_S from "./screens/layout/Settings"
 import { NavButton } from "./components/NavLink"
 
 export default function Teacher() { 
@@ -36,9 +37,10 @@ export default function Teacher() {
                   <NavButton onClick={() => setActive(<Dashboard />)} icon={<LayoutDashboard size={20} />} label="Dashboard" active={activ.type === Dashboard} />
                   <NavButton onClick={() => setActive(<Grades />)} icon={<SquareLibrary size={20} />} label="Grados" active={activ.type === Grades} />
                   <NavButton onClick={() => setActive(<Blogs />)} icon={<NotebookText size={20} />} label="Blog" active={activ.type === Blogs} />
-                  <NavButton onClick={() => setActive(<Teachers />)} icon={<Users size={20} />} label="Maestros" active={activ.type === Teachers} />
+                  <NavButton onClick={() => setActive(<Teachers />)} icon={<SquareUserRound size={20} />} label="Maestros" active={activ.type === Teachers} />
                   <NavButton onClick={() => setActive(<Fathers />)} icon={<UsersRound size={20} />} label="Padres" active={activ.type === Fathers} />
                   <NavButton onClick={() => setActive(<Students />)} icon={<UsersRound size={20} />} label="Estudiantes" active={activ.type === Students} />
+                  <NavButton onClick={() => setActive(<Settings_S />)} icon={<Settings size={20} />} label="Settings" active={activ.type === Settings} />
               </nav>
           </aside>
 
@@ -49,4 +51,3 @@ export default function Teacher() {
       </div>
   )
 }
-
