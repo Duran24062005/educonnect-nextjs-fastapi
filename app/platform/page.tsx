@@ -30,7 +30,6 @@ export default function Platform() {
 
   return (
     <div className="Home min-h-screen flex flex-col">
-      <Header />
       <header className="bg-slate-900 text-white p-4 lg:px-8 md:p-1 fixed top-0 right-0 left-0">
         <div className="container mx-auto flex justify-between items-center">
           <div className='flex cursor-pointer' onClick={()=>changeState(<HomeComponent />)}>
