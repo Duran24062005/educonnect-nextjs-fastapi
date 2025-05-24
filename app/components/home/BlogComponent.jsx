@@ -22,7 +22,7 @@ export const BlogComponent = () => {
                 setBlogs(data)
                 setLoading(false)
             } catch (error) {
-                console.error('Error fetching blogs: ', err)
+                console.error('Error fetching blogs: ')
                 setError('No se pudo cargar la lista de Blogs')
             } finally {
                 setLoading(false)
