@@ -4,6 +4,7 @@ from fastapi import UploadFile, HTTPException
 import os
 import uuid
 
+
 class TeacherServices:
 
     def __init__(self, db: Session) -> None:

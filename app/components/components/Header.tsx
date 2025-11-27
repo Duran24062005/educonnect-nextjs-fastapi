@@ -6,6 +6,7 @@ import EduConnectLogo from "@/public/assets/img/EduConectLogo.png";
 import { BellIcon, CogIcon, HelpCircleIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { useState } from "react";
+import { UserProfile } from "@/app/platform/UserProfile";
 
 export const Header = () => {
     const [ change, setChange ] = useState(<HomeComponent />)
