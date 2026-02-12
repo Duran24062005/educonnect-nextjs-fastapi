@@ -1,23 +1,43 @@
-import os
-from sqlalchemy import create_engine, MetaData, Table
-from sqlalchemy.orm.session import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+"""
+Database configuration and session management.
+"""
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.pool import StaticPool
+from ..core.config import settings
 
-sqlite_file_name = "../educonnect_db.sqlite"
-base_dir = os.path.dirname(os.path.realpath(__file__))
+# Create engine with proper configuration
+if settings.DATABASE_URL.startswith("sqlite"):
+    # SQLite specific configuration
+    engine = create_engine(
+        settings.DATABASE_URL,
+        echo=settings.DB_ECHO,
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+else:
+    # PostgreSQL/MySQL configuration
+    engine = create_engine(
+        settings.DATABASE_URL,
+        echo=settings.DB_ECHO,
+        pool_pre_ping=True,  # Verify connections before using
+    )
 
-database_url = f"sqlite:///{os.path.join(base_dir, sqlite_file_name)}"
+# Create session factory
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-engine = create_engine(database_url, echo=True)
-
-Session = sessionmaker(bind=engine)
-
+# Base class for models
 Base = declarative_base()
 
-# metadata = MetaData()
-# # Reemplaza 'nombre_de_la_tabla' con el nombre de tu tabla
-# table_to_drop = Table('teachers', metadata, autoload_with=engine)
 
-# with engine.connect() as connection:
-#     table_to_drop.drop(connection)
+def get_db():
+    """
+    Dependency function to get database session.
+    Use this in FastAPI route dependencies.
+    """
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 

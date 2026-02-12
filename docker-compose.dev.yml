@@ -1,0 +1,59 @@
+version: '3.8'
+
+# Docker Compose para desarrollo con hot-reload
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: educonnect-backend-dev
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - ENVIRONMENT=development
+      - DATABASE_URL=sqlite:///./api/educonnect_db.sqlite
+      - DB_ECHO=True
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - UPLOAD_DIR=./api/uploads
+      - MAX_UPLOAD_SIZE=5242880
+      - FRONTEND_URL=http://localhost:3000
+      - LOG_LEVEL=DEBUG
+    volumes:
+      - ./api:/app/api
+      - ./api/uploads:/app/api/uploads
+      - ./api/educonnect_db.sqlite:/app/api/educonnect_db.sqlite
+      - ./logs:/app/logs
+    command: python -m uvicorn api.index:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - educonnect-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: educonnect-frontend-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    depends_on:
+      - backend
+    networks:
+      - educonnect-network
+
+networks:
+  educonnect-network:
+    driver: bridge

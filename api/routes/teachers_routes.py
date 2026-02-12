@@ -1,53 +1,94 @@
-from fastapi import APIRouter, UploadFile, HTTPException
-from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
+"""
+Teacher routes for the API.
+"""
+from fastapi import APIRouter, UploadFile, Depends
+from sqlalchemy.orm import Session
+
 from ..schemas.teacher_schema import TeacherSchema, TeacherCreateSchema, TeacherUpdateSchema
-from ..data.teachers import Teachers_table
 from ..controllers.teachers_controller import TeacherController
+from ..config.database import get_db
 
 teacher_routes = APIRouter()
 
 
-@teacher_routes.get("/all", tags=["Teachers"], response_model=list[TeacherSchema])
-def get_teacher()-> list[TeacherSchema]:
-    resp = TeacherController.get_teachers()
-    return JSONResponse(content=jsonable_encoder(resp), status_code=200)
+@teacher_routes.get(
+    "/all",
+    response_model=list[TeacherSchema],
+    summary="Get all teachers",
+    description="Retrieve a list of all teachers in the system",
+)
+def get_all_teachers(db: Session = Depends(get_db)) -> list[TeacherSchema]:
+    """Get all teachers."""
+    return TeacherController.get_teachers(db)
 
-@teacher_routes.get('/{id}', tags=['Teachers'], response_model=TeacherSchema)
-def get_teacher(id:int)-> TeacherSchema:
-    resp = TeacherController.get_teacher_by_id(id)
-    if resp is not None:
-        return JSONResponse(content=jsonable_encoder(resp), status_code=200)
-    return JSONResponse(content={'Not Found': 'Teacher not found'}, status_code=404)
 
-@teacher_routes.get('/post/teachers/{id}', tags=['Teachers'])
-def get_all_teachers(id: int)-> list[TeacherSchema]:
-    resp = TeacherController.get_post_by_teacher(id)
-    return JSONResponse(content=jsonable_encoder(resp), status_code=200)
+@teacher_routes.get(
+    "/{teacher_id}",
+    response_model=TeacherSchema,
+    summary="Get teacher by ID",
+    description="Retrieve a specific teacher by their ID",
+)
+def get_teacher(teacher_id: int, db: Session = Depends(get_db)) -> TeacherSchema:
+    """Get a teacher by ID."""
+    return TeacherController.get_teacher_by_id(teacher_id, db)
 
-@teacher_routes.post('/', tags=['Teachers'], response_model=TeacherSchema)
-def create_teacher(teacher: TeacherCreateSchema)->TeacherCreateSchema:
-    resp = TeacherController.create_teacher(teacher)
-    return JSONResponse(content=jsonable_encoder(resp), status_code=201)
 
-@teacher_routes.post('/upload_file', tags=['Teachers'])
-def upload_file(id: int, file: UploadFile)->JSONResponse:
-    # Verificar el archivo
-    if not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="Invalid file type")
-    # Guardar el archivo
-    response = TeacherController.upload_file(id, file)
-    if response is None:
-            raise HTTPException(status_code=500, detail="Failed to upload file")
-    return JSONResponse(content=response, status_code=201)
-    
+@teacher_routes.get(
+    "/{teacher_id}/posts",
+    summary="Get teacher posts",
+    description="Retrieve all posts created by a specific teacher",
+)
+def get_teacher_posts(teacher_id: int, db: Session = Depends(get_db)):
+    """Get all posts from a teacher."""
+    return TeacherController.get_post_by_teacher(teacher_id, db)
 
-@teacher_routes.put('/', tags=['Teachers'])
-def update_father(id: int, father: TeacherUpdateSchema) -> JSONResponse:
-    resp = TeacherController.update_teacher(id, father.model_dump())
-    return JSONResponse(content=jsonable_encoder(resp), status_code=200)
 
-@teacher_routes.delete('/', tags=['Teachers'])
-def delete_father(id: int) -> JSONResponse:
-    resp = TeacherController.delete_teacher(id)
-    return JSONResponse(content=jsonable_encoder(resp), status_code=200)
+@teacher_routes.post(
+    "/",
+    response_model=TeacherSchema,
+    status_code=201,
+    summary="Create teacher",
+    description="Create a new teacher in the system",
+)
+def create_teacher(
+    teacher: TeacherCreateSchema, db: Session = Depends(get_db)
+) -> TeacherSchema:
+    """Create a new teacher."""
+    return TeacherController.create_teacher(teacher, db)
+
+
+@teacher_routes.post(
+    "/{teacher_id}/upload",
+    summary="Upload teacher image",
+    description="Upload an image file for a teacher",
+)
+def upload_teacher_image(
+    teacher_id: int, file: UploadFile, db: Session = Depends(get_db)
+):
+    """Upload a file for a teacher."""
+    return TeacherController.upload_file(teacher_id, file, db)
+
+
+@teacher_routes.put(
+    "/{teacher_id}",
+    response_model=TeacherSchema,
+    summary="Update teacher",
+    description="Update an existing teacher's information",
+)
+def update_teacher(
+    teacher_id: int,
+    teacher: TeacherUpdateSchema,
+    db: Session = Depends(get_db),
+) -> TeacherSchema:
+    """Update a teacher."""
+    return TeacherController.update_teacher(teacher_id, teacher, db)
+
+
+@teacher_routes.delete(
+    "/{teacher_id}",
+    summary="Delete teacher",
+    description="Delete a teacher from the system",
+)
+def delete_teacher(teacher_id: int, db: Session = Depends(get_db)):
+    """Delete a teacher."""
+    return TeacherController.delete_teacher(teacher_id, db)

@@ -41,7 +41,6 @@
 #         if not user or not user.verify_password(password):
 #             raise HTTPException(status_code=401, detail="Credenciales inválidas")
 #         return user
-
 #     @staticmethod
 #     async def login(email: str, password: str):
 #         user = await AuthController.validate_user(email, password)

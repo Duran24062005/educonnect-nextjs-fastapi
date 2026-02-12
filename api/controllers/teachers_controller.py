@@ -1,92 +1,106 @@
+"""
+Teacher controller layer for handling HTTP requests.
+"""
+from typing import List
+from sqlalchemy.orm import Session
+from fastapi import UploadFile, Depends
+
 from ..schemas.teacher_schema import TeacherSchema, TeacherCreateSchema, TeacherUpdateSchema
 from ..services.teachers_services import TeacherServices
-from ..config.database import Session
-from sqlalchemy.exc import SQLAlchemyError
-from fastapi import UploadFile
+from ..config.database import get_db
 from ..send_email.send_email import SendCustomEmail
+from ..core.config import settings
+from ..core.logging_config import logger
 
-h = """
-    This class is a controller that handles all the logic of the teachers.
-    It is responsible for receiving the data sent by the client, processing it, and sending it to the services.
-    The services are responsible for interacting with the database.
-    The controller is responsible for handling the response from the services and sending it back to the client.
-"""
 
 class TeacherController:
+    """
+    Controller class for teacher-related operations.
+    
+    This class handles HTTP requests and delegates business logic to services.
+    """
 
-    def get_teachers() -> list[TeacherSchema]:
+    @staticmethod
+    def get_teachers(db: Session = Depends(get_db)) -> List[TeacherSchema]:
         """Get all teachers from the database."""
-        try:
-            with Session() as db:
-                return TeacherServices(db).get_teachers()
-        except SQLAlchemyError as e:
-            print(f"Error fetching teachers: {e}")
-            return []
+        service = TeacherServices(db)
+        teachers = service.get_teachers()
+        return [TeacherSchema.model_validate(teacher) for teacher in teachers]
 
-    def get_teacher_by_id(id: int) -> TeacherSchema:
+    @staticmethod
+    def get_teacher_by_id(
+        teacher_id: int, db: Session = Depends(get_db)
+    ) -> TeacherSchema:
         """Get a teacher by id from the database."""
-        try:
-            db = Session()
-            return TeacherServices(db).get_teacher_by_id(id)
-        except SQLAlchemyError as e:
-            print(f"Error fetching teacher with id {id}: {e}")
-            return None
+        service = TeacherServices(db)
+        teacher = service.get_teacher_by_id(teacher_id)
+        return TeacherSchema.model_validate(teacher)
         
-    def get_post_by_teacher(id: int):
+    @staticmethod
+    def get_post_by_teacher(
+        teacher_id: int, db: Session = Depends(get_db)
+    ) -> List:
         """Get all posts from a teacher."""
-        try:
-            with Session() as db:
-                return TeacherServices(db).get_post_teacher(id)
-        except SQLAlchemyError as e:
-            print(f"Error fetching teacher post: {e}")
-            return None
+        service = TeacherServices(db)
+        return service.get_post_teacher(teacher_id)
 
-    def create_teacher(teacher: TeacherCreateSchema) -> TeacherCreateSchema:
+    @staticmethod
+    def create_teacher(
+        teacher: TeacherCreateSchema, db: Session = Depends(get_db)
+    ) -> TeacherSchema:
         """Create a new teacher in the database."""
+        service = TeacherServices(db)
+        created_teacher = service.create_teacher(teacher)
+        
+        # Send welcome email asynchronously (in production, use background tasks)
         try:
-            with Session() as db:
-                created = TeacherServices(db).create_teacher(teacher)
-                if created:
-                    received = SendCustomEmail(created.email, f"Bienvenido a la plataforma {created.first_name}", "welcome_v1", {
-                        "first_name": created.first_name,
-                        "last_name": created.last_name,
-                        "verification_link": "https://my-web-production-xi.vercel.app/"
-                        # "http://localhost:8000/verify"
-                        # Welcome to the platform
-                    }).send_email()
-                    print(received)
-                    return created
-        except SQLAlchemyError as e:
-            print(f"Error creating teacher: {e}")
-            return None
+            email_service = SendCustomEmail(
+                receiver_email=created_teacher.email,
+                subject=f"Bienvenido a la plataforma {created_teacher.first_name}",
+                template_name="welcome_v1",
+                data={
+                    "first_name": created_teacher.first_name,
+                    "last_name": created_teacher.last_name,
+                    "verification_link": f"{settings.FRONTEND_URL}/verify",
+                },
+            )
+            email_service.send_email()
+            logger.info(f"Welcome email sent to {created_teacher.email}")
+        except Exception as e:
+            logger.warning(f"Failed to send welcome email: {e}")
+            # Don't fail the request if email fails
+        
+        return TeacherSchema.model_validate(created_teacher)
 
-    def upload_file(teacher_id: int, file: UploadFile):
-        try:
-            with Session() as db:
-                return TeacherServices(db).upload_file(teacher_id, file)
-        except SQLAlchemyError as e:
-            print(f"Error uploading file: {e}")
-            return None
+    @staticmethod
+    def upload_file(
+        teacher_id: int, file: UploadFile, db: Session = Depends(get_db)
+    ) -> dict:
+        """Upload a file for a teacher."""
+        service = TeacherServices(db)
+        return service.upload_file(teacher_id, file)
 
-    def update_teacher(id: int, teacher: TeacherUpdateSchema) -> TeacherUpdateSchema:
+    @staticmethod
+    def update_teacher(
+        teacher_id: int,
+        teacher: TeacherUpdateSchema,
+        db: Session = Depends(get_db),
+    ) -> TeacherSchema:
         """Update a teacher in the database."""
-        try:
-            with Session() as db:
-                return TeacherServices(db).update_teacher(id, teacher)
-        except SQLAlchemyError as e:
-            print(f"Error updating teacher with id {id}: {e}")
-            return None
+        service = TeacherServices(db)
+        updated_teacher = service.update_teacher(
+            teacher_id, teacher.model_dump(exclude_unset=True)
+        )
+        return TeacherSchema.model_validate(updated_teacher)
 
-    def delete_teacher(id: int) -> bool:
+    @staticmethod
+    def delete_teacher(
+        teacher_id: int, db: Session = Depends(get_db)
+    ) -> dict:
         """Delete a teacher from the database."""
-        try:
-            with Session() as db:
-                response = TeacherServices(db).delete_teacher(id)
-                if response:
-                    return {"Message": "Theacher deleted successfully"}
-        except SQLAlchemyError as e:
-            print(f"Error deleting teacher with id {id}: {e}")
-            return False
+        service = TeacherServices(db)
+        service.delete_teacher(teacher_id)
+        return {"message": "Teacher deleted successfully"}
 
 
         
