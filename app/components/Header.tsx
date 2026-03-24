@@ -1,4 +1,5 @@
 import { Menu } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
 export default function Header() {
@@ -10,10 +11,12 @@ export default function Header() {
         <a href="#about" className="hover:text-primary-foreground">About</a>
         <a href="#contact" className="hover:text-primary-foreground">Contact</a>
       </nav>
-      <Button variant="ghost" className="md:hidden">
+      <Button asChild variant="ghost" className="hidden md:inline-flex">
+        <Link href="/login">Ingresar</Link>
+      </Button>
+      <Button variant="ghost" className="md:hidden" aria-label="Abrir menu">
         <Menu className="h-6 w-6" />
       </Button>
     </header>
   )
 }
-

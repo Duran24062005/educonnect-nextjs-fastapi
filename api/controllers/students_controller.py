@@ -1,11 +1,11 @@
-from ..schemas.student_schema import Student, CreateStudent
+from ..schemas.student_schema import CreateStudent, StudentSchema, UpdateStudent
 from ..services.students_services import StudentService
 from ..config.database import Session
 
 
 class StudentController():
 
-    def get_students()->list[Student]:
+    def get_students()->list[StudentSchema]:
         """Get all teachers from the database.
         Returns:
         list[Teacher]: A list of all teachers.
@@ -45,7 +45,7 @@ class StudentController():
         except Exception as e:
             return f"An error occurred: {e}"
         
-    def update_student(id: int, date: CreateStudent):
+    def update_student(id: int, date: UpdateStudent):
         """Update a student in the database.
         Args:
         id (int): The id of the student to be updated.

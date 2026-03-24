@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Upload } from 'lucide-react';
+import { getApiUrl } from '@/lib/api';
 
 export default function CreateBlog() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +36,7 @@ export default function CreateBlog() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/posts/create', {
+      const response = await fetch(getApiUrl('/posts/create'), {
         method: 'POST',
         body: formData,
       });
@@ -127,4 +128,3 @@ export default function CreateBlog() {
     </div>
   );
 }
-

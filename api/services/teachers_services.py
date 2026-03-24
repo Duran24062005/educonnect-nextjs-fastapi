@@ -4,6 +4,9 @@ from fastapi import UploadFile, HTTPException
 import os
 import uuid
 
+from ..core.config import get_settings
+from ..core.security import hash_password
+
 
 class TeacherServices:
 
@@ -51,14 +54,14 @@ class TeacherServices:
         with open(file_path, "wb") as buffer:
             buffer.write(file.file.read())
 
-        image_url = f"http://127.0.0.1:8000/uploads/{unique_filename}"
+        image_url = f"{get_settings().normalized_domain}/uploads/{unique_filename}"
         teacher = self.db.query(TeacherEntity).filter(TeacherEntity.id == teacher_id).first()
         if not teacher:
             raise HTTPException(status_code=404, detail="Teacher not found")
         
-        teacher.imageUrl = image_url  # Actualiza el campo con la nueva URL
-        self.db.commit()  # Guarda los cambios en la base de datos
-        self.db.close()
+        teacher.imageUrl = image_url
+        self.db.commit()
+        self.db.refresh(teacher)
         
         return {"message": "Image uploaded and URL updated", "image_url": image_url}
 
@@ -66,11 +69,12 @@ class TeacherServices:
 
     def create_teacher(self, teacher_data):
         """Create a new teacher in the database."""
-        new_teacher = TeacherEntity(**teacher_data.model_dump())
+        payload = teacher_data.model_dump()
+        payload["password"] = hash_password(payload["password"])
+        new_teacher = TeacherEntity(**payload)
         self.db.add(new_teacher)
         self.db.commit()
         self.db.refresh(new_teacher)
-        self.db.close()
         return new_teacher
      
 
@@ -80,6 +84,8 @@ class TeacherServices:
         if not teacher:
             return None
         for key, value in teacher_data.items():
+            if key == "password" and value:
+                value = hash_password(value)
             setattr(teacher, key, value)
         self.db.commit()
         self.db.refresh(teacher)

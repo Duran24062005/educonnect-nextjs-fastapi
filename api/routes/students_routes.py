@@ -1,24 +1,23 @@
 from fastapi import APIRouter
-from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from ..schemas.student_schema import Student as StudentEntity
-from ..schemas.student_schema import CreateStudent
-from ..data.students import Students_table
+from fastapi.responses import JSONResponse
+
 from ..controllers.students_controller import StudentController
+from ..schemas.student_schema import CreateStudent, StudentSchema, UpdateStudent
 
 students_routes = APIRouter()
 
-@students_routes.get("/all", tags=["Students"], response_model=list[StudentEntity])
-async def get_students()-> list[StudentEntity]:
+@students_routes.get("/all", tags=["Students"], response_model=list[StudentSchema])
+async def get_students()-> list[StudentSchema]:
     students = StudentController.get_students()
     return JSONResponse(content=jsonable_encoder(students), status_code=200)
 
-@students_routes.get('/get/{id}', tags=['Students'], response_model=StudentEntity)
-async def get_student(id:int)-> StudentEntity:
+@students_routes.get('/get/{id}', tags=['Students'], response_model=StudentSchema)
+async def get_student(id:int)-> StudentSchema:
     student = StudentController.get_student(id)
     return JSONResponse(content=jsonable_encoder(student), status_code=200)
 
-@students_routes.post('/create', tags=['Students'], response_model=list[StudentEntity])
+@students_routes.post('/create', tags=['Students'], response_model=StudentSchema)
 async def create_student(student_dat: CreateStudent)->CreateStudent:
     try:
         student_create = StudentController.create_student(student_dat)
@@ -27,7 +26,7 @@ async def create_student(student_dat: CreateStudent)->CreateStudent:
         return JSONResponse(content={"message": f"An error occurred: {e}"}, status_code=500)
 
 @students_routes.put('/update/id={id}', tags=['Students'])
-async def update_student(id: int, student: CreateStudent) -> JSONResponse:
+async def update_student(id: int, student: UpdateStudent) -> JSONResponse:
     student_update = StudentController.update_student(id, student)
     if student_update is not None:
         return JSONResponse(content=jsonable_encoder(student_update), status_code=200)

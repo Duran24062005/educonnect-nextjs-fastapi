@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react'
 import { fetchStudents } from '@/app/api/apis/students'
-import Image from 'next/image'
+import { calculateAge } from '@/lib/utils'
 
 export const Students = () => {
 
   const [students, setStudents] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  console.log(students)
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,30 +66,8 @@ export const Students = () => {
                 <p className="text-slate-400">{student.email || 'Sin correo'}</p>
                 <p className="text-slate-400">{student.phone || 'Sin teléfono'}</p>
                 <p className="text-slate-400">Padre: {student.father || 'Desconocido'}</p>
-                <p className="text-slate-400">{student.course.name || 'Sin grado'}</p>
-                <p className="text-slate-300 mt-2">Edad: 
-                  {
-                    (() => {
-                      if (student.birth_date) {
-                        const birthDate = new Date(student.birth_date);
-                        const today = new Date();
-                        let age = today.getFullYear() - birthDate.getFullYear();
-
-                        // Verifica si el cumpleaños ya pasó este año
-                        const hasBirthdayPassed =
-                          today.getMonth() > birthDate.getMonth() ||
-                          (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-
-                        if (!hasBirthdayPassed) {
-                          age -= 1; // Resta un año si el cumpleaños no ha pasado
-                        }
-
-                        return ' '+age;
-                      }
-                      return 'N/A'; // Si no hay fecha de nacimiento
-                    })()
-                  }
-                </p>
+                <p className="text-slate-400">{student.course?.name || 'Sin grado'}</p>
+                <p className="text-slate-300 mt-2">Edad: {calculateAge(student.birth_date) ?? 'N/A'}</p>
                 {student.activo && (
                   <div className="bg-green-500 mt-2 rounded-lg w-2 h-2"></div>
                 )}

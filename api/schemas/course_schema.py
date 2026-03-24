@@ -11,7 +11,7 @@ class CourseSchema(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
         json_schema_extra = {
             "example": {
                 "id": 1,
@@ -39,7 +39,7 @@ class CourseUpdateSchema(BaseModel):
     """This is a class representing a grade."""
     name: Optional[str] = None
     description: Optional[str] = None
-    uptaded_at: Optional[datetime] = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
     class Config:
         json_schema_extra = {

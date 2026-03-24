@@ -10,7 +10,7 @@ from .routes.students_routes import students_routes
 from .routes.course_routes import course_routes
 from .routes.grades_routes import grades_routes
 from .config.database import Base, engine
-# from .auth.auth_routes import auth_routes
+from .auth.auth_routes import auth_routes
 from dotenv import load_dotenv
 
 # UPOLOAD_DIR = "/uploads"
@@ -30,7 +30,7 @@ app_cors(app)
 # Monta la carpeta de uploads para servir las imágenes públicamente
 app.mount("/uploads", StaticFiles(directory="./api/uploads"), name="uploads")
 
-# app.include_router(auth_routes, prefix="/auth")
+app.include_router(auth_routes, prefix="/auth")
 app.include_router(welcome_route, prefix="/welcome")
 app.include_router(post_routes, prefix="/posts")
 app.include_router(teacher_routes, prefix="/teachers")

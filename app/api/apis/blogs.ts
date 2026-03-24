@@ -1,16 +1,30 @@
-'use server'
-import { useEffect, useState } from "react";
+import { apiFetch, resolveApiAssetUrl } from "@/lib/api"
+import type { BlogPost } from "./types"
 
-export const fetchBlogs = async () => {
-  try {
-    const response = await fetch('http://127.0.0.1:8000/posts/');
-    if (!response.ok) throw new Error('Error al obtener los datos');
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
+function normalizeTeacher(teacher: unknown) {
+  if (Array.isArray(teacher)) {
+    return teacher[0] ?? null
   }
-;}
+
+  if (teacher && typeof teacher === "object") {
+    return teacher as BlogPost["teacher"]
+  }
+
+  return null
+}
+
+function normalizeBlogPost(post: BlogPost) {
+  return {
+    ...post,
+    imageUrl: resolveApiAssetUrl(post.imageUrl) ?? "/assets/img/Fondo2.jpg",
+    teacher: normalizeTeacher(post.teacher),
+  }
+}
+
+export async function fetchBlogs() {
+  const posts = await apiFetch<BlogPost[]>("/posts/")
+  return posts.map(normalizeBlogPost)
+}
 
 // export function useBlogs(){
 
@@ -60,10 +74,8 @@ export const fetchBlogs = async () => {
 //     throw error;
 //   }
 // };
-
-
-export async function CreateBlogs(prevState: any, formData: FormData) {
-  let teacher_id = 2;
+export async function CreateBlogs(prevState: unknown, formData: FormData) {
+  const teacherId = String(formData.get("teacher_id") ?? 2)
 
   if (!formData) {
     return { success: false, message: 'No se recibieron datos del formulario' }
@@ -71,26 +83,26 @@ export async function CreateBlogs(prevState: any, formData: FormData) {
 
   const title = formData.get('title')
   const content = formData.get('content')
-  const file = formData.get('file')
-  const teacher = teacher_id
+  const image = formData.get("image") ?? formData.get("file")
 
   if (!title || !content) {
     return { success: false, message: 'El titulo y el contenido son requeridos' }
   }
 
-  // Aquí simularemos una petición a una API
   try {
-    const response = await fetch('http://127.0.0.1:8000/posts/create/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, content, file, teacher }),
-    })
+    const payload = new FormData()
+    payload.append("title", String(title))
+    payload.append("content", String(content))
+    payload.append("teacher_id", teacherId)
 
-    if (!response.ok) {
-      throw new Error('Error en la respuesta del servidor')
+    if (image instanceof File) {
+      payload.append("image", image)
     }
+
+    await apiFetch("/posts/create", {
+      method: "POST",
+      body: payload,
+    })
 
     return { success: true, message: 'Formulario enviado con éxito' }
   } catch (error) {

@@ -1,0 +1,34 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: educonnect-backend
+    env_file:
+      - .env
+    environment:
+      DOMAIN: http://localhost:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api/uploads:/app/api/uploads
+      - ./api/educonnect_db.sqlite:/app/api/educonnect_db.sqlite
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+        INTERNAL_API_BASE_URL: http://backend:8000
+    container_name: educonnect-frontend
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+      INTERNAL_API_BASE_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

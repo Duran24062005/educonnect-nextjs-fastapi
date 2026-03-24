@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import LogoEdu from '@/public/assets/img/EduConectLogo.png'
 import Image from "next/image"
+import Link from 'next/link'
 
 export default function Hero() {
   return (
@@ -16,8 +17,9 @@ export default function Hero() {
       <p className="text-xl mb-8 max-w-2xl mx-auto">
         Revoluciona la experiencia educativa con nuestra plataforma integral. Conectamos estudiantes, maestros y padres en un ecosistema digital que transforma la gestión académica en una experiencia simple y eficiente.
       </p>
-      <Button size="lg"><a href='http://localhost:3000/login'>Get Starter</a></Button>
+      <Button asChild size="lg">
+        <Link href="/login">Comenzar</Link>
+      </Button>
     </section>
   )
 }
-

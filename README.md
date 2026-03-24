@@ -55,26 +55,46 @@ source venv/bin/activate
 Then, install the dependencies:
 
 ```bash
+npm run setup
+# or
 npm install
-# or
-yarn
-# or
-pnpm install
 ```
 
-Then, run the development server(python dependencies will be installed automatically here):
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 The FastApi server will be running on [http://127.0.0.1:8000](http://127.0.0.1:8000) – feel free to change the port in `package.json` (you'll also need to update it in `next.config.js`).
+
+## Project Notes
+
+- Frontend requests are centralized in `app/api/apis/*` and use `NEXT_PUBLIC_API_BASE_URL`.
+- `npm run typecheck` validates the TypeScript layer without building the app.
+- `npm run fastapi-dev` no longer reinstalls Python dependencies on every boot.
+
+## Docker
+
+To run the full stack with Docker:
+
+```bash
+docker compose up --build
+```
+
+This will expose:
+
+- Frontend on `http://localhost:3000`
+- Backend on `http://localhost:8000`
+- FastAPI docs on `http://localhost:3000/docs` or `http://localhost:8000/api/py/docs`
+
+Notes:
+
+- `docker-compose.yml` mounts `./api/uploads` and `./api/educonnect_db.sqlite` to persist uploaded files and SQLite data.
+- The frontend uses `NEXT_PUBLIC_API_BASE_URL=http://localhost:8000` for browser requests.
+- Internally, Next.js proxies docs/OpenAPI requests to FastAPI using `INTERNAL_API_BASE_URL=http://backend:8000`.
 
 ## Learn More
 

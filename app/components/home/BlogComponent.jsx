@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Image from "next/image"
 import { Calendar, User, ChevronRight, X } from 'lucide-react'
-import { blogPosts } from '@/app/data/Blogs.js'
 import { fetchBlogs } from '@/app/api/apis/blogs'
 import BlogSkeleton from './skeletons/BlogSkeleton'
 
@@ -13,23 +12,24 @@ export const BlogComponent = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-    useEffect(()=>{
-        const fetchData = async() => {
-            setLoading(true)
-            setError(null)
-            try{
-                const data = await fetchBlogs()
-                setBlogs(data)
-                setLoading(false)
-            } catch (error) {
-                console.error('Error fetching blogs: ')
-                setError('No se pudo cargar la lista de Blogs')
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchData();
-    }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      setError(null)
+
+      try {
+        const data = await fetchBlogs()
+        setBlogs(data)
+      } catch (err) {
+        console.error('Error fetching blogs:', err)
+        setError('No se pudo cargar la lista de blogs')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const openModal = (post) => {
     setSelectedPost(post)
@@ -51,7 +51,6 @@ export const BlogComponent = () => {
   const filterBlogs = blogs.filter((blog) => 
     blog.title.toLowerCase().includes(filter.toLowerCase())
   );
-  console.log(blogs, filterBlogs)
 
   if (loading) {
     return <BlogSkeleton />
@@ -59,6 +58,16 @@ export const BlogComponent = () => {
 
   if (error) {
     return <div className="text-center text-red-500">{error}</div>
+  }
+
+  if (filterBlogs.length === 0) {
+    return (
+      <div className="container mx-auto px-4">
+        <div className="rounded-lg border border-slate-700 bg-slate-900 p-8 text-center text-slate-300">
+          No hay publicaciones que coincidan con la busqueda actual.
+        </div>
+      </div>
+    )
   }
 
 
@@ -111,7 +120,7 @@ export const BlogComponent = () => {
               <p className="text-slate-400 mb-2">{post.content}</p>
               <div className="flex items-center text-sm text-gray-500 mb-1">
                 <User className="h-4 w-4 mr-1" />
-                <span className="mr-4">Prof. {post.teacher.first_name}</span>
+                <span className="mr-4">Prof. {post.teacher?.first_name || 'Docente'}</span>
                 <Calendar className="h-4 w-4 mr-1" />
                 <span className="mr-4">{new Date(post.created_at).toLocaleDateString()}</span>
                 <span>{new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
@@ -149,7 +158,7 @@ const PostDetail = ({ id, title, content, teacher, created_at, imageUrl, onClose
       <p className="text-slate-400 mb-4">{content}</p>
       <div className="flex items-center text-sm text-gray-500 mb-4">
         <User className="h-4 w-4 mr-1" />
-        <span className="mr-4">Prof. {teacher.first_name}</span>
+        <span className="mr-4">Prof. {teacher?.first_name || 'Docente'}</span>
         <Calendar className="h-4 w-4 mr-1" />
         <span>{new Date(created_at).toLocaleDateString([], { hour: '2-digit', minute: '2-digit' })}</span>
       </div>

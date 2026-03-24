@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 import { fetchTeachers } from '@/app/api/apis/teachers'
-import Image from 'next/image'
 
 export const Teachers = () => {
   const [teachers, setTeachers] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  console.log(teachers)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,8 +18,8 @@ export const Teachers = () => {
           setError('Datos inválidos recibidos del servidor')
         }
       } catch (err) {
-        console.error('Error fetching students: ', err)
-        setError('No se pudo cargar la lista de estudiantes')
+        console.error('Error fetching teachers: ', err)
+        setError('No se pudo cargar la lista de profesores')
       } finally {
         setLoading(false)
       }
@@ -63,8 +61,6 @@ export const Teachers = () => {
                 </h2>
                 <p className="text-slate-400">{teacher.email || 'Sin correo'}</p>
                 <p className="text-slate-400">{teacher.phone || 'Sin teléfono'}</p>
-                {/* <p className="text-slate-400">Padre: {teacher.parent || 'Desconocido'}</p> */}
-                {/* <p className="text-slate-400">{teacher.grade || 'Sin grado'}</p> */}
                 <p className="text-slate-300 mt-2">Edad: {teacher.age || 'N/A'}</p>
                 {teacher.activo && (
                   <div className="bg-green-500 mt-2 rounded-lg w-2 h-2"></div>
@@ -77,4 +73,3 @@ export const Teachers = () => {
     </div>
   )
 }
-

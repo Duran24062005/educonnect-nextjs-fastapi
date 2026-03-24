@@ -1,16 +1,17 @@
-import { useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { User, Settings, LogOut } from 'lucide-react'
 
-export default function ProfileModal() {
+type ProfileModalProps = {
+  onClose: () => void
+}
+
+export default function ProfileModal({ onClose }: ProfileModalProps) {
 
   return (
-        <div className="fixed inset-0 z-50 flex items-center justify-end mr-4 -mt-52 text-black">
-          <div className="bg-white rounded-lg p-4 w-64 shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/20 pr-4 text-black" onClick={onClose}>
+          <div className="bg-white rounded-lg p-4 w-64 shadow-lg" onClick={(event) => event.stopPropagation()}>
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-medium">Perfil de Usuario</h2>
-              {/* <button onClick={(e) => {}}>Cerrar</button> */}
+              <button onClick={onClose} className="text-sm text-slate-500 hover:text-slate-900">Cerrar</button>
             </div>
             <div className="mt-4">
               <div className="flex flex-col space-y-1">
@@ -36,4 +37,3 @@ export default function ProfileModal() {
         </div>
   )
 }
-

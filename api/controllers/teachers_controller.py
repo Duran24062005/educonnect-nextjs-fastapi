@@ -47,14 +47,19 @@ class TeacherController:
             with Session() as db:
                 created = TeacherServices(db).create_teacher(teacher)
                 if created:
-                    received = SendCustomEmail(created.email, f"Bienvenido a la plataforma {created.first_name}", "welcome_v1", {
-                        "first_name": created.first_name,
-                        "last_name": created.last_name,
-                        "verification_link": "https://my-web-production-xi.vercel.app/"
-                        # "http://localhost:8000/verify"
-                        # Welcome to the platform
-                    }).send_email()
-                    print(received)
+                    try:
+                        SendCustomEmail(
+                            created.email,
+                            f"Bienvenido a la plataforma {created.first_name}",
+                            "welcome_v1",
+                            {
+                                "first_name": created.first_name,
+                                "last_name": created.last_name,
+                                "verification_link": "https://my-web-production-xi.vercel.app/",
+                            },
+                        ).send_email()
+                    except Exception as email_error:
+                        print(f"Welcome email could not be sent: {email_error}")
                     return created
         except SQLAlchemyError as e:
             print(f"Error creating teacher: {e}")

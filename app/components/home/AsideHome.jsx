@@ -26,13 +26,13 @@ ChartJS.register(
 )
 
 export const AsideHome = () => {
-
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchCourses(); // Cambia '/api/my-endpoint' por la URL deseada
+        const response = await fetchCourses();
         setData(response);
       } catch (err) {
         setError(err.message);
@@ -45,7 +45,6 @@ export const AsideHome = () => {
   if (error) return <p>{error}</p>;
   if (!data) return <AsideHomeSkeleton />;
 
-  const values = [15, 12, 4, 6, 40, 5, 60, 20, 50, 30, 30, 40, 39];
   const dta = [70, 20, 30, 85, 30, 55, 25];
 
   const chartData = {
@@ -97,7 +96,7 @@ export const AsideHome = () => {
 
       <div className="px-4 py-3 bg-slate-700 w-72 m-auto rounded-md">
         <h2 className="text-center text-slate-200">Materias Activas</h2>
-        <p className="text-center text-slate-200">{ data }</p>
+        <p className="text-center text-slate-200">{data}</p>
       </div>
 
       <div className="px-1 pt-3 h-52 bg-slate-700 xl:w-72 xl:h-60 xl:m-auto rounded-md">

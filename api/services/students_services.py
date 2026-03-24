@@ -2,6 +2,8 @@ from ..models.student_models import Student as StudentEntity
 from ..schemas.student_schema import CreateStudent
 from sqlalchemy.orm import Session, joinedload
 
+from ..core.security import hash_password
+
 class StudentService:
 
     def __init__(self, db: Session) -> None:
@@ -20,7 +22,9 @@ class StudentService:
         return student
 
     def create_student(self, student_dates):
-        student = StudentEntity(**student_dates.model_dump())
+        payload = student_dates.model_dump()
+        payload["password"] = hash_password(payload["password"])
+        student = StudentEntity(**payload)
         self.db.add(student)
         self.db.commit()
         self.db.refresh(student)
@@ -34,6 +38,8 @@ class StudentService:
         
         # Actualizar los campos del estudiante
         for key, value in data.model_dump(exclude_unset=True).items():
+            if key == "password" and value:
+                value = hash_password(value)
             setattr(student, key, value)
         
         # Confirmar los cambios

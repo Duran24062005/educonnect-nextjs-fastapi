@@ -1,31 +1,23 @@
 'use client'
-// import { Header } from "../components/components/Header";
 import Image from "next/image";
 import { HomeComponent } from "../components/home/HomeComponent";
 import { UserProfile } from "./UserProfile";
-import { Header } from "../components/components/Header";
-import { Footer } from "../components/components/Footer";
 import { JSX, useState } from "react";
 import user from '@/public/assets/img/estudiante.jpeg';
 import EduConnectLogo from "@/public/assets/img/EduConectLogo.png";
 import logo from "@/public/assets/react.svg";
-import { BellIcon, CogIcon, HelpCircleIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import ProfileModal from "./components/UserModal";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 
 
 export default function Platform() {
 
-  const [ change, setChange ] = useState(<HomeComponent />)
-  const [ isChnge, setIsChange ] = useState(false);
+  const [activeScreen, setActiveScreen] = useState(<HomeComponent />)
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const changeState = (screen: JSX.Element) => {
-    setChange(screen)
-  }
-
-  const changeProfile = (profile: boolean) => {
-    setIsChange(profile)
+    setActiveScreen(screen)
   }
 
   return (
@@ -41,24 +33,24 @@ export default function Platform() {
             <button onClick={ () => changeState(<UserProfile />) } >
               <h2 className='text-md mr-2 mt-3'>Alexi</h2>
             </button>
-            {/* <Image className='w-12 h-12 rounded-full' src={ user } alt="" /> */}
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full" title="Profile Dropdown" onClick={ ()=> changeProfile(!setIsChange) }>
+            <Button
+              variant="ghost"
+              className="relative h-8 w-8 rounded-full"
+              title="Profile Dropdown"
+              onClick={() => setIsProfileOpen((current) => !current)}
+            >
               <Avatar className="h-8 w-8">
                 <AvatarImage src={user.src} alt="@usuario" />
-                {/* <AvatarFallback>US</AvatarFallback> */}
               </Avatar>
             </Button>
           </div>
         </div>
       </header>
 
-      { isChnge && (
-        <ProfileModal />
+      {isProfileOpen && (
+        <ProfileModal onClose={() => setIsProfileOpen(false)} />
       ) }
-      { change }
-
-      {/* <Footer /> */}
+      {activeScreen}
     </div>
   );
 }
-
