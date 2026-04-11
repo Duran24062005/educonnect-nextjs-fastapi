@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+
+.codex
+
 # uoloads image directory
 /uploads
 
